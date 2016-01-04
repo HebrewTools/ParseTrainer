@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 $(document).ready(function(){
-    var audio_positive = new Audio('/public/audio/positive.wav');
-    var audio_negative = new Audio('/public/audio/negative.wav');
+    var audio_positive = new Audio('public/audio/positive.wav');
+    var audio_negative = new Audio('public/audio/negative.wav');
 
     var correct_answer;
 
@@ -30,7 +30,7 @@ $(document).ready(function(){
         var tenses = $('input[name="tense"]:checked').map(function(){return this.value;});
         var roots = $('input[name="root"]:checked').map(function(){return this.value;});
 
-        $.ajax('/verb/random', {
+        $.ajax('verb/random', {
             data: {
                 stem: $.makeArray(stems).join(),
                 tense: $.makeArray(tenses).join(),
@@ -152,14 +152,14 @@ $(document).ready(function(){
     }
 
     function init() {
-        $.ajax('/stem', {
+        $.ajax('stem', {
             dataType: 'json',
             success: function(data, status, jqxhr) {
                 stems = data.map(function(d){return d.name;});
             }
         });
 
-        $.ajax('/tense', {
+        $.ajax('tense', {
             dataType: 'json',
             success: function(data, status, jqxhr) {
                 tenses = data.map(function(d){return d.name;});

@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <head>
         <meta charset="utf-8">
         <title>HebrewParseTrainer</title>
-        <link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="/public/css/hebrewparsetrainer.css">
+        <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="public/css/hebrewparsetrainer.css">
     </head>
     <body role="application">
         <div class="container" role="main">
@@ -89,8 +89,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </div>
         </div>
 
-        <script src="/vendor/components/jquery/jquery.min.js"></script>
-        <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/public/js/hebrewparsetrainer.js"></script>
+        <script src="vendor/components/jquery/jquery.min.js"></script>
+        <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="public/js/hebrewparsetrainer.js"></script>
     </body>
 </html>
