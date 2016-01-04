@@ -9,6 +9,7 @@
 /app/tests/_log
 
 composer.phar
+composer.lock
 
 .DS_Store
 
