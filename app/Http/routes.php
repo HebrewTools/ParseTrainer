@@ -12,5 +12,15 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->welcome();
+    return view('trainer');
 });
+
+$app->get('/stem', function () use ($app) {
+    return \HebrewParseTrainer\Stem::all();
+});
+
+$app->get('/tense', function () use ($app) {
+    return \HebrewParseTrainer\Tense::all();
+});
+
+$app->get('/verb/random', 'RandomVerbController@show');
