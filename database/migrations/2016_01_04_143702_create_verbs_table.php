@@ -40,7 +40,7 @@ class CreateVerbsTable extends Migration
             $table->enum('number', ['s', 'p']);
             $table->timestamps();
 
-            $table->unique(['verb', 'root', 'stem', 'tense', 'gender', 'number']);
+            $table->unique(['verb', 'root', 'stem', 'tense', 'person', 'gender', 'number']);
 
             $table->foreign('root')->references('root')->on('roots');
             $table->foreign('stem')->references('name')->on('stems');
