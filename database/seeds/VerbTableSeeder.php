@@ -38,16 +38,22 @@ class VerbTableSeeder extends Seeder {
         Verb::create(['verb' => 'קָטַלְתְּ', 'root' => 'קטל', 'stem' => 'Qal',
             'tense' => 'perfect', 'person' => 2, 'gender' => 'f', 'number' => 's']);
         Verb::create(['verb' => 'קָטַ֫לְתִּי', 'root' => 'קטל', 'stem' => 'Qal',
-            'tense' => 'perfect', 'person' => 1, 'gender' => 'c', 'number' => 's']);
+            'tense' => 'perfect', 'person' => 1, 'gender' => 'm', 'number' => 's']);
+        Verb::create(['verb' => 'קָטַ֫לְתִּי', 'root' => 'קטל', 'stem' => 'Qal',
+            'tense' => 'perfect', 'person' => 1, 'gender' => 'f', 'number' => 's']);
 
         Verb::create(['verb' => 'קָֽטְלוּ', 'root' => 'קטל', 'stem' => 'Qal',
-            'tense' => 'perfect', 'person' => 3, 'gender' => 'c', 'number' => 'p']);
+            'tense' => 'perfect', 'person' => 3, 'gender' => 'm', 'number' => 'p']);
+        Verb::create(['verb' => 'קָֽטְלוּ', 'root' => 'קטל', 'stem' => 'Qal',
+            'tense' => 'perfect', 'person' => 3, 'gender' => 'f', 'number' => 'p']);
         Verb::create(['verb' => 'קְטַלְתֶּם', 'root' => 'קטל', 'stem' => 'Qal',
             'tense' => 'perfect', 'person' => 2, 'gender' => 'm', 'number' => 'p']);
         Verb::create(['verb' => 'קְטַלְתֶּן', 'root' => 'קטל', 'stem' => 'Qal',
             'tense' => 'perfect', 'person' => 2, 'gender' => 'f', 'number' => 'p']);
         Verb::create(['verb' => 'קָטַ֫לְנוּ', 'root' => 'קטל', 'stem' => 'Qal',
-            'tense' => 'perfect', 'person' => 1, 'gender' => 'c', 'number' => 'p']);
+            'tense' => 'perfect', 'person' => 1, 'gender' => 'm', 'number' => 'p']);
+        Verb::create(['verb' => 'קָטַ֫לְנוּ', 'root' => 'קטל', 'stem' => 'Qal',
+            'tense' => 'perfect', 'person' => 1, 'gender' => 'f', 'number' => 'p']);
     }
 
 }

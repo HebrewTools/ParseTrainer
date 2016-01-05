@@ -130,7 +130,7 @@ $(document).ready(function(){
         var genders = ['m', 'f', 'c', null];
         var numbers = ['s', 'p', null];
 
-        var re = /^\s*(\w+)\s+(\w+)(?:\s+(?:([123])\s*)?([mfc])\s*([sp])\s*)?$/;
+        var re = /^\s*(\w+)\s+(\w+)(?:\s+(?:([123])\s*)?([mf])\s*([sp])\s*)?$/;
         var match = parsing.match(re);
         if (match == null)
             return false;
@@ -168,8 +168,7 @@ $(document).ready(function(){
     function parsingToString(parsing, extended) {
         var genders = {
             'm': 'masculine',
-            'f': 'feminine',
-            'c': 'communis generis'
+            'f': 'feminine'
         };
         var numbers = {
             's': 'singular',

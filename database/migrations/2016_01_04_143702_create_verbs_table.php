@@ -36,7 +36,7 @@ class CreateVerbsTable extends Migration
             $table->string('stem', 24);
             $table->string('tense', 24);
             $table->enum('person', [1,2,3])->nullable();
-            $table->enum('gender', ['m', 'f', 'c'])->nullable();
+            $table->enum('gender', ['m', 'f'])->nullable();
             $table->enum('number', ['s', 'p'])->nullable();
             $table->timestamps();
 
