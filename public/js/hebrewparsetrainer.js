@@ -19,12 +19,60 @@ $(document).ready(function(){
     var audio_positive = new Audio('public/audio/positive.wav');
     var audio_negative = new Audio('public/audio/negative.wav');
 
-    var correct_answer;
+    var correct_answers;
+    var input_count = 0;
+    var checked = false;
+
+    function addInput() {
+        input_count++;
+        var html = "<div class='row trainer-input'>\
+                        <div class='col-md-8'>\
+                            <div class='form-group'>\
+                                <label for='trainer-input-"+input_count+"'>Parse:</label>\
+                                <input type='text' class='form-control' id='trainer-input-"+input_count+"' placeholder='Q pf 3 m s'/>\
+                            </div>\
+                        </div>\
+                        <div class='col-md-4'>\
+                            <div class='form-group'>\
+                                <label for='trainer-parsed-"+input_count+"'>Interpreted as:</label>\
+                                <input type='text' class='form-control' id='trainer-parsed-"+input_count+"' readonly='readonly'/>\
+                            </div>\
+                        </div>\
+                    </div>";
+        $('#trainer-input-container').append(html);
+
+        $('#trainer-input-'+input_count).keyup(function(e){
+            if (e.keyCode == 13) {
+                if (!checked) {
+                    checked = checkInput();
+                } else {
+                    reloadVerb();
+                    $(this)
+                        .val('')
+                        .css({backgroundColor:'transparent'})
+                        .parent().removeClass('has-error has-success');
+                    checked = false;
+                }
+            } else {
+                $(this)
+                    .css({backgroundColor:'transparent'})
+                    .parent().removeClass('has-error has-success');
+                checked = false;
+                processInput();
+            }
+        }).focus();
+    }
+
+    function removeInputs() {
+        $('.trainer-input').remove();
+        input_count = 0;
+    }
 
     function reloadVerb() {
         $('#trainer-404').hide();
         $('#trainer-verb').css({color: 'gray'});
         $('#trainer-answer').text('');
+        removeInputs();
 
         var stems = $('input[name="stem"]:checked').map(function(){return this.value;});
         var tenses = $('input[name="tense"]:checked').map(function(){return this.value;});
@@ -41,14 +89,21 @@ $(document).ready(function(){
                 $('#trainer-404').fadeIn();
             },
             success: function(data, status, jqxhr) {
-                $('#trainer-verb').text(data.verb).css({color: 'black'});
-                correct_answer = {
-                    stem: data.stem,
-                    tense: data.tense,
-                    person: data.person,
-                    gender: data.gender,
-                    number: data.number
-                };
+                $('#trainer-verb').text(data.verb.verb).css({color: 'black'});
+
+                correct_answers = [];
+                for (var i in data.answers) {
+                    var answer = {
+                        stem: data.answers[i].stem,
+                        tense: data.answers[i].tense,
+                        person: data.answers[i].person,
+                        gender: data.answers[i].gender,
+                        number: data.answers[i].number
+                    };
+                    correct_answers.push(answer);
+                }
+
+                addInput();
             }
         });
     }
@@ -134,32 +189,46 @@ $(document).ready(function(){
     }
 
     function processInput() {
-        var input = $('#trainer-input');
+        var input = $('#trainer-input-' + input_count);
         var answer = parseAnswer(input.val());
         if (answer === false) {
             input.parent().addClass('has-error');
-            $('#trainer-parsed').val('Parsing error');
+            $('#trainer-parsed-' + input_count).val('Parsing error');
         } else {
             input.parent().removeClass('has-error');
-            $('#trainer-parsed').val(parsingToString(answer, true));
+            $('#trainer-parsed-' + input_count).val(parsingToString(answer, true));
         }
         return answer;
     }
 
     function checkInput() {
         var answer = processInput();
-        if (JSON.stringify(answer) == JSON.stringify(correct_answer)) {
-            $('#trainer-input')
-                .css({backgroundColor: '#dff0d8'})
-                .parent().addClass('has-success');
-            if ($('#settings-audio').prop('checked')) audio_positive.play();
-        } else {
-            $('#trainer-input')
-                .css({backgroundColor: '#f2dede'})
-                .parent().addClass('has-error');
-            if ($('#settings-audio').prop('checked')) audio_negative.play();
-            $('#trainer-answer').text(' - ' + parsingToString(correct_answer));
+        for (var i in correct_answers) {
+            var correct_answer = correct_answers[i];
+            if (JSON.stringify(answer) == JSON.stringify(correct_answer)) {
+                $('#trainer-input-'+input_count)
+                    .css({backgroundColor: '#dff0d8'})
+                    .parent().addClass('has-success');
+                if ($('#settings-audio').prop('checked')) audio_positive.play();
+
+                correct_answers.splice(i,1);
+                if (correct_answers.length > 0) {
+                    console.log(correct_answers);
+                    addInput();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         }
+
+        $('#trainer-input-'+input_count)
+            .css({backgroundColor: '#f2dede'})
+            .parent().addClass('has-error');
+        if ($('#settings-audio').prop('checked')) audio_negative.play();
+        $('#trainer-answer').text(' - ' + correct_answers.map(parsingToString).join(', '));
+
+        return true;
     }
 
     function init() {
@@ -179,35 +248,10 @@ $(document).ready(function(){
         });
 
         reloadVerb();
-
-        $('#trainer-input').focus();
     }
 
     $('#hebrewparsetrainer-settings input.reload-verb').change(function(){
         reloadVerb();
-    });
-
-    var checked = false;
-    $('#trainer-input').keyup(function(e){
-        if (e.keyCode == 13) {
-            if (!checked) {
-                checkInput();
-                checked = true;
-            } else {
-                reloadVerb();
-                $(this)
-                    .val('')
-                    .css({backgroundColor:'transparent'})
-                    .parent().removeClass('has-error has-success');
-                checked = false;
-            }
-        } else {
-            $(this)
-                .css({backgroundColor:'transparent'})
-                .parent().removeClass('has-error has-success');
-            checked = false;
-            processInput();
-        }
     });
 
     init();

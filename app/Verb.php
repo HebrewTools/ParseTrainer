@@ -26,4 +26,10 @@ class Verb extends Model {
 
     protected $fillable = ['verb', 'root', 'stem', 'tense', 'person', 'gender', 'number'];
 
+    public function otherParsings()
+    {
+        return self::where('verb', $this->verb)->get()
+            ->filter(function($v){return $v->verb === $this->verb;});
+    }
+
 }

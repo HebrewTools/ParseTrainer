@@ -68,23 +68,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                     </form>
                 </div>
-                <div class="col-md-10 col-sm-8">
+                <div class="col-md-10 col-sm-8" id="trainer-input-container"">
                     <p class="bg-danger" id="trainer-404">There are no verbs matching the criteria in our database.</p>
                     <p class="lead"><span class="hebrew hebrew-large" id="trainer-verb"></span><span id="trainer-answer"></span></p>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="trainer-input">Parse:</label>
-                                <input type="text" class="form-control" id="trainer-input" placeholder="Q pf 3 m s"/>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="trainer-parsed">Interpreted as:</label>
-                                <input type="text" class="form-control" id="trainer-parsed" readonly="readonly"/>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

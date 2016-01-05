@@ -34,7 +34,10 @@ class RandomVerbController extends BaseController {
                 return in_array($item->getAttribute($col), $val);
             });
         }
-        return $verbs->random();
+        $verb = $verbs->random();
+
+        $obj = ['verb' => $verb, 'answers' => $verb->otherParsings()];
+        return response()->json($obj);
     }
 
 }
