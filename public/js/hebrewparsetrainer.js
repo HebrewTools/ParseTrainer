@@ -253,5 +253,13 @@ $(document).ready(function(){
         reloadVerb();
     });
 
+    var help_shown = false;
+    $('#show-hide-help').click(function(){
+        help_shown = !help_shown;
+        $('#trainer-input-help').slideToggle();
+        $(this).text((help_shown ? 'Hide' : 'Show') + ' help');
+        $('#trainer-input-'+input_count).focus();
+    });
+
     init();
 });

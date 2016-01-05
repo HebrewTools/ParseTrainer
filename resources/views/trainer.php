@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </div>
 
             <div class="row">
-                <div class="col-md-2 col-sm-4">
+                <div class="col-md-2 col-xs-4">
                     <form id="hebrewparsetrainer-settings">
                         <div class="form-group">
                             <h3>Stems</h3>
@@ -68,9 +68,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                     </form>
                 </div>
-                <div class="col-md-10 col-sm-8" id="trainer-input-container"">
+                <div class="col-md-10 col-xs-8" id="trainer-input-container">
                     <p class="bg-danger" id="trainer-404">There are no verbs matching the criteria in our database.</p>
                     <p class="lead"><span class="hebrew hebrew-large" id="trainer-verb"></span><span id="trainer-answer"></span></p>
+                </div>
+                <div class="col-md-10 col-xs-8 text-muted">
+                    <p id="trainer-input-help">
+                        <strong>Stems</strong>: either use the full name or a significant beginning (i.e. <code>Q</code> for Qal but <code>Pi</code> for Piel rather than <code>P</code>).<br/>
+                        <strong>Tenses</strong>: use the abbreviations <code>pf</code>, <code>ipf</code>, <code>coh</code>, <code>imp</code>, <code>jus</code>, <code>infcs</code>, <code>infabs</code>, <code>pta</code> and <code>ptp</code>.<br/>
+                        <strong>Person</strong>: <code>1</code>, <code>2</code>, <code>3</code> or none (infinitives and participles).<br/>
+                        <strong>Gender</strong>: <code>m</code>, <code>f</code> or none (infinitives).<br/>
+                        <strong>Number</strong>: <code>s</code>, <code>p</code> or none (infinitives).
+                    </p>
+                    <button type="button" class="btn btn-default btn-xs" id="show-hide-help">Show help</button>
                 </div>
             </div>
         </div>

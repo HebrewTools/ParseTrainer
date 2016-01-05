@@ -25,6 +25,10 @@
     padding: 15px;
 }
 
+#trainer-input-help {
+    display: none;
+}
+
 .hebrew {
     font-family: 'Ezra SIL', David;
 }
