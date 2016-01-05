@@ -72,10 +72,10 @@ $(document).ready(function(){
 
     function parseAnswer(parsing) {
         var persons = ['1', '2', '3', null];
-        var genders = ['m', 'f', 'c'];
-        var numbers = ['s', 'p'];
+        var genders = ['m', 'f', 'c', null];
+        var numbers = ['s', 'p', null];
 
-        var re = /^\s*(\w+)\s+(\w+)\s+(?:([123])\s*)?([mfc])\s*([sp])\s*$/;
+        var re = /^\s*(\w+)\s+(\w+)(?:\s+(?:([123])\s*)?([mfc])\s*([sp])\s*)?$/;
         var match = parsing.match(re);
         if (match == null)
             return false;
@@ -83,17 +83,23 @@ $(document).ready(function(){
         var stem = findStem(match[1]);
         var tense = findTense(match[2]);
         var person = match[3] ? match[3] : null;
-        var gender = match[4];
-        var number = match[5];
+        var gender = match[4] ? match[4] : null;
+        var number = match[5] ? match[5] : null;
 
         if (typeof stem === 'undefined' || typeof tense === 'undefined' || $.inArray(person, persons) == -1 ||
-            !$.inArray(gender, genders) == -1 || !$.inArray(number, numbers) == -1)
+                $.inArray(gender, genders) == -1 || $.inArray(number, numbers) == -1)
             return false;
 
-        if (tense.indexOf('participle') == 0 && person != null)
+        if (tense.indexOf('infinitive') == 0 && (person != null || gender != null || number != null))
             return false;
-        if (tense.indexOf('participle') != 0 && person == null)
-            return false;
+        if (tense.indexOf('infinitive') != 0) {
+            if (gender == null || number == null)
+                return false;
+            if (tense.indexOf('participle') == 0 && person != null)
+                return false;
+            if (tense.indexOf('participle') != 0 && person == null)
+                return false;
+        }
 
         return {
             stem: stem,
@@ -115,10 +121,15 @@ $(document).ready(function(){
             'p': 'plural'
         };
         if (extended === true) {
-            return parsing.stem + ' ' + parsing.tense + ' ' + parsing.person +
-                ' ' + genders[parsing.gender] + ' ' + numbers[parsing.number];
+            return parsing.stem + ' ' + parsing.tense + 
+                    (parsing.person ? (' ' + parsing.person) : '') +
+                    (parsing.gender ? (' ' + genders[parsing.gender]) : '') + 
+                    (parsing.number ? (' ' + numbers[parsing.number]) : '');
         } else {
-            return parsing.stem + ' ' + parsing.tense + ' ' + parsing.person + ' ' + parsing.gender + ' ' + parsing.number;
+            return parsing.stem + ' ' + parsing.tense + 
+                    (parsing.person ? (' ' + parsing.person) : '') + 
+                    (parsing.gender ? (' ' + parsing.gender) : '') + 
+                    (parsing.number ? (' ' + parsing.number) : '');
         }
     }
 
