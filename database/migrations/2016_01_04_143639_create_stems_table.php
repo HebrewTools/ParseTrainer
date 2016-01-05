@@ -32,7 +32,6 @@ class CreateStemsTable extends Migration
         Schema::create('stems', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 24)->unique();
-            $table->timestamps();
         });
     }
 

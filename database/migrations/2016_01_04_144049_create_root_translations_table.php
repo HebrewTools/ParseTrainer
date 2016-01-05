@@ -33,7 +33,6 @@ class CreateRootTranslationsTable extends Migration
             $table->increments('id');
             $table->string('root', 24)->collate('utf8_general_ci');
             $table->string('translation', 63);
-            $table->timestamps();
 
             $table->unique(['root', 'translation']);
 

@@ -33,7 +33,6 @@ class CreateRootsTable extends Migration
             $table->increments('id');
             $table->string('root', 24)->collate('utf8_general_ci')->unique();
             $table->boolean('strong');
-            $table->timestamps();
         });
     }
 

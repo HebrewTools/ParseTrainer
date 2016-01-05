@@ -33,7 +33,6 @@ class CreateTensesTable extends Migration
             $table->increments('id');
             $table->string('name', 24)->unique();
             $table->string('abbreviation', 6)->unique();
-            $table->timestamps();
         });
     }
 
