@@ -42,7 +42,7 @@ $(document).ready(function(){
                         <div class='col-md-8'>\
                             <div class='form-group'>\
                                 <label for='trainer-input-"+input_count+"'>Parse:</label>\
-                                <input type='text' class='form-control' id='trainer-input-"+input_count+"' placeholder='Q pf 3 m s' spellcheck='false'/>\
+                                <input type='text' class='form-control' id='trainer-input-"+input_count+"' placeholder='Q pf 3ms' spellcheck='false'/>\
                             </div>\
                         </div>\
                         <div class='col-md-4'>\
@@ -230,7 +230,6 @@ $(document).ready(function(){
 
                 correct_answers.splice(i,1);
                 if (correct_answers.length > 0) {
-                    console.log(correct_answers);
                     addInput();
                     return false;
                 } else {
