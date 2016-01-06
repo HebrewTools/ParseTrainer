@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class Verb extends Model {
 
     protected $table = 'verbs';
-
+    public $timestamps = false;
     protected $fillable = ['verb', 'root', 'stem', 'tense', 'person', 'gender', 'number'];
 
     public function otherParsings()

@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class Stem extends Model {
 
     protected $table = 'stems';
-
+    public $timestamps = false;
     protected $fillable = ['name'];
 
 }

@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class RootTranslation extends Model {
 
     protected $table = 'root_translations';
-
+    public $timestamps = false;
     protected $fillable = ['root', 'translation'];
 
 }

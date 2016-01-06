@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tense extends Model {
 
     protected $table = 'tenses';
-
+    public $timestamps = false;
     protected $fillable = ['name', 'abbreviation'];
 
 }
