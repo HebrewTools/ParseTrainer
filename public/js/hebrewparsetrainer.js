@@ -16,6 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 $(document).ready(function(){
+    // http://stackoverflow.com/a/4399433/1544337
+    jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
+        this.each(function() {
+            $(this).css("position","relative"); 
+            for (var x=1; x<=intShakes; x++) {
+                $(this).animate({left:(intDistance*-1)}, (intDuration/intShakes)/4)
+                        .animate({left:intDistance}, (intDuration/intShakes)/2)
+                        .animate({left:0}, (intDuration/intShakes)/4);
+            }
+        });
+        return this;
+    };
+
     var audio_positive = new Audio('public/audio/positive.wav');
     var audio_negative = new Audio('public/audio/negative.wav');
 
@@ -202,6 +215,11 @@ $(document).ready(function(){
 
     function checkInput() {
         var answer = processInput();
+        if (!answer && $('#trainer-input-'+input_count).val() != '') {
+            $('#trainer-input-'+input_count).shake(2, 12, 300);
+            return false;
+        }
+
         for (var i in correct_answers) {
             var correct_answer = correct_answers[i];
             if (JSON.stringify(answer) == JSON.stringify(correct_answer)) {
