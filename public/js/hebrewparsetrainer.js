@@ -126,7 +126,7 @@ $(document).ready(function(){
     var tenses_abbr = [];
 
     function findStem(stem) {
-        var stems_ = stems.filter(function(s){return s.indexOf(stem) == 0;});
+        var stems_ = stems.filter(function(s){return s.toLowerCase().indexOf(stem.toLowerCase()) == 0;});
         if (stems_.length == 1)
             return stems_[0];
     }
