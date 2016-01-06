@@ -6,6 +6,97 @@ A simple app to practice Hebrew verbs.
 
 [demo.camilstaps.nl/HebrewParseTrainer][demo]
 
+## Installation
+
+    $ git clone https://github.com/camilstaps/HebrewParseTrainer
+    $ cd HebrewParseTrainer
+    $ composer install
+
+## Configuration
+
+First, create a MySQL database and a user that can connect to it. In this example, we'll use `hebrew_db`, `hebrew_user` and `hebrew_pass`.
+
+Create a `.env` file in the root directory with at least the following options:
+
+    APP_ENV=production
+    APP_DEBUG=false
+    APP_KEY= # a 32-char random string
+    APP_URL=https://demo.camilstaps.nl/HebrewParseTrainer/ # e.g., use your own URL here
+
+    APP_LOCALE=en
+    APP_FALLBACK_LOCALE=en
+
+    DB_CONNECTION=mysql
+    DB_HOST=localhost
+    DB_PORT=3306
+    DB_DATABASE=hebrew_db
+    DB_USERNAME=hebrew_user
+    DB_PASSWORD=hebrew_pass
+
+    CACHE_DRIVER=memchached
+    SESSION_DRIVER=memcached
+    QUEUE_DRIVER=database
+
+Return to the root directory and run:
+
+    $ php artisan migrate --seed
+
+### Nginx
+
+You need to enable PHP and redirect everything to `server.php`. Configuration on the root of a site is straightforward:
+
+    server {
+        listen [::]:80;
+        server_name myhostname;
+        root /.../HebrewParseTrainer;
+        index index.php index.html index.htm;
+        charset utf-8;
+
+        location / {
+            autoindex off;
+            try_files $uri $uri/ /server.php$is_args$query_string;
+        }
+
+        location ~ \.php$ {
+            # whatever you do to make PHP work
+        }
+
+        location ~ /\. {
+            deny all;
+        }
+    }
+
+In a subdirectory, we need to enforce trailing slashes and do some special things. This configures nginx to handle the trainer from `/HebrewParseTrainer/`:
+
+    server {
+        listen [::]:80;
+        server_name myhostname;
+        root /...;
+        index index.php index.html index.htm;
+        charset utf-8;
+
+        rewrite ^([^.]*[^/])$ $1/ permanent;
+
+        location ~ ^/HebrewParseTrainer/(.*)\.php$ {
+            try_files $uri $uri/ /HebrewParseTrainer/server.php$is_args$query_string;
+
+            # whatever you do to make PHP work
+        }
+
+        rewrite /HebrewParseTrainer/?$ /HebrewParseTrainer/public/index.php;
+        location /HebrewParseTrainer {
+            try_files $uri $uri/ /HebrewParseTrainer/server.php$is_args$query_string;
+        }
+
+        location / {
+            autoindex off;
+        }
+
+        location ~ /\. {
+            deny all;
+        }
+    }
+
 ## License
 
 GPL v3.0, see the LICENSE file.
