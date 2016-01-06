@@ -42,7 +42,7 @@ $(document).ready(function(){
                         <div class='col-md-8'>\
                             <div class='form-group'>\
                                 <label for='trainer-input-"+input_count+"'>Parse:</label>\
-                                <input type='text' class='form-control' id='trainer-input-"+input_count+"' placeholder='Q pf 3 m s'/>\
+                                <input type='text' class='form-control' id='trainer-input-"+input_count+"' placeholder='Q pf 3 m s' spellcheck='false'/>\
                             </div>\
                         </div>\
                         <div class='col-md-4'>\
