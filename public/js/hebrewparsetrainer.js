@@ -80,19 +80,15 @@ $(document).ready(function(){
 					} else {
 						var done = checkInput(true);
 						if ($('#trainer-input-'+input_count).parent().hasClass('has-error')) {
+							var next = $('<button></button>');
+							next.addClass('btn btn-warning').attr('role', 'button');
+							next.click(reloadVerb);
 							if (done) {
-								var next = $('<button></button>');
-								next.addClass('btn btn-warning').attr('role', 'button');
 								next.text('Next');
-								next.click(reloadVerb);
-								$('#trainer-input-fancy').html(next);
 							} else {
-								var skip = $('<button></button>');
-								skip.addClass('btn btn-warning').attr('role', 'button');
-								skip.text('Skip');
-								skip.click(reloadVerb);
-								$('#trainer-input-fancy').append(skip);
+								next.text('Skip');
 							}
+							$('#trainer-input-fancy').html(next);
 						}
 					}
 				});
