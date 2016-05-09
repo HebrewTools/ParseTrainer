@@ -68,7 +68,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						</div>
 
 						<h3>About</h3>
-						<p>&copy; 2015 <a href="https://camilstaps.nl">Camil Staps</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>. Source is on <a href="https://github.com/camilstaps/HebrewParseTrainer">GitHub</a>.</p>
+						<p>&copy; 2015-16 <a href="https://camilstaps.nl">Camil Staps</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>. Source is on <a href="https://github.com/camilstaps/HebrewParseTrainer">GitHub</a>.</p>
+						<p>Please report any mistakes to <a href="mailto:info@camilstaps.nl">info@camilstaps.nl</a>.</p>
 					</form>
 				</div>
 				<div class="col-md-10 col-xs-8" id="trainer-input-container">
