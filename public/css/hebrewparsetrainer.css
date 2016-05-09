@@ -16,23 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 @font-face {
-    font-family: 'Ezra SIL';
-    src: url('fonts/EzraSIL.ttf');
+	font-family: 'Ezra SIL';
+	src: url('fonts/EzraSIL.ttf');
 }
 
 #trainer-404 {
-    display: none;
-    padding: 15px;
+	display: none;
+	padding: 15px;
+}
+
+#trainer-input-fancy {
+	margin-bottom: 20px;
 }
 
 #trainer-input-help {
-    display: none;
+	display: none;
 }
 
 .hebrew {
-    font-family: 'Ezra SIL', David;
+	font-family: 'Ezra SIL', David;
 }
 
 .hebrew-large {
-    font-size: 40px;
+	font-size: 40px;
 }
