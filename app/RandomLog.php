@@ -16,34 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-namespace App\Http\Controllers;
+namespace HebrewParseTrainer;
 
-use HebrewParseTrainer\Verb;
-use HebrewParseTrainer\RandomLog;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Database\Eloquent\Model;
 
-class RandomVerbController extends BaseController {
+class RandomLog extends Model {
 
-	public function show()
-	{
-		$verbs = Verb::all();
-		foreach (Input::get() as $col => $val) {
-			$val = explode(',', $val);
-			$verbs = $verbs->filter(function(Verb $item) use ($col, $val) {
-				return in_array($item->getAttribute($col), $val);
-			});
-		}
-		$verb = $verbs->random();
-
-		$log = new RandomLog();
-		$log->request = json_encode(Input::get());
-		$log->response = $verb;
-		$log->save();
-
-		$obj = ['verb' => $verb, 'answers' => $verb->otherParsings()];
-		return response()->json($obj);
+	protected $table = 'random_logs';
+	public $timestamps = false;
+	protected $fillable = ['request', 'response'];
+		
+		public static function boot() {
+		static::creating(function ($model) {
+			$model->created_at = $model->freshTimestamp();
+		});
 	}
 
 }
