@@ -15,8 +15,10 @@ class CreateRandomLogsTable extends Migration
 		Schema::create('random_logs', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('request', 1023)->collate('utf8_general_ci');
-			$table->string('response', 24)->collate('utf8_general_ci');
+			$table->integer('response')->unsigned();
 			$table->timestamp('created_at');
+
+			$table->foreign('response')->references('id')->on('verbs');
 		});
 	}
 

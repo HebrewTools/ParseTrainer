@@ -39,7 +39,7 @@ class RandomVerbController extends BaseController {
 
 		$log = new RandomLog();
 		$log->request = json_encode(Input::get());
-		$log->response = $verb;
+		$log->response = $verb->id;
 		$log->save();
 
 		$obj = ['verb' => $verb, 'answers' => $verb->otherParsings()];
