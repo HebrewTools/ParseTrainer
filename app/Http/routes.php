@@ -43,5 +43,9 @@ $app->group(['prefix' => parse_url(env('APP_URL'), PHP_URL_PATH)], function ($ap
     });
     
     $app->get('/verb/random', 'App\Http\Controllers\RandomVerbController@show');
+
+    $app->get('/stats', function () use ($app) {
+        return view('stats');
+    });
     
 });
