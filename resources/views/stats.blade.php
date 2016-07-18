@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <head>
     <meta charset="utf-8">
     <title>HebrewParseTrainer statistics</title>
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="public/css/hebrewparsetrainer.css">
+    <link rel="stylesheet" href="{{ url("/vendor/twbs/bootstrap/dist/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ url("/vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css") }}">
+    <link rel="stylesheet" href="{{ url("/public/css/hebrewparsetrainer.css") }}">
 </head>
 <body role="application">
 <div class="container" role="main">
@@ -53,10 +53,10 @@ foreach ($db_stats as $stat) {
 $stats = "[" . implode(",", $stats) . "]";
 ?>
 
-<script src="vendor/components/jquery/jquery.min.js"></script>
-<script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{ url("/vendor/components/jquery/jquery.min.js") }}"></script>
+<script src="{{ url("/vendor/twbs/bootstrap/dist/js/bootstrap.min.js") }}"></script>
 <script src="//code.highcharts.com/highcharts.js"></script>
-<script src="public/js/hebrewparsetrainer.js"></script>
+<script src="{{ url("/public/js/hebrewparsetrainer.js") }}"></script>
 
 <script type="text/javascript">
     $('#statistics').highcharts({
@@ -67,11 +67,15 @@ $stats = "[" . implode(",", $stats) . "]";
             min: 0,
             title: { text: 'Requests' }
         },
+        plotOptions: { column: {
+            pointPadding: 0,
+            groupPadding: 0
+        } },
         tooltip: { pointFormat: '<b>{point.y}</b> requests' },
         series: [
             {
                 name: 'Requests',
-                data: <?=$stats?>
+                data: {{ $stats }}
             }
         ]
     });
