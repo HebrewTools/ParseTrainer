@@ -60,7 +60,7 @@ $stats = "[" . implode(",", $stats) . "]";
 
 <script type="text/javascript">
 	$('#statistics').highcharts('StockChart', {
-	chart: {
+		chart: {
 			type: 'column',
 			zoomType: 'x'
 		},
