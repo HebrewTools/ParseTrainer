@@ -98,5 +98,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<script src="vendor/components/jquery/jquery.min.js"></script>
 		<script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="public/js/hebrewparsetrainer.js"></script>
+		<script type="text/javascript">
+			reloadVerb();
+		</script>
 	</body>
 </html>

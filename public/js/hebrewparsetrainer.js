@@ -328,8 +328,6 @@ $(document).ready(function(){
 				tenses_abbr = data.map(function(d){return d.abbreviation;});
 			}
 		});
-
-		reloadVerb();
 	}
 
 	$('#hebrewparsetrainer-settings input.reload-verb').change(function(){
