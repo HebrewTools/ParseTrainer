@@ -36,66 +36,66 @@ $(document).ready(function(){
 	var input_count = 0;
 	var checked = false;
 
-		function stepFancyInput(step) {
-			$('#trainer-input-fancy').html('');
-			var buts = {};
-			switch (step) {
-				case 0:
-					buts = { 'Q ':   'Qal'
-					       , 'Hip ': 'Hiphil'
-					       , 'Ho ':  'Hophal'
-					       , 'Ni ':  'Niphal'
-					       , 'Pi ':  'Piel'
-					       , 'Pu ':  'Pual'
-					       , 'Hit ': 'Hitpael'
-					}; break;
-				case 1:
-					buts = { 'pf ':	'Pf.'
-					       , 'ipf ':   'Ipf.'
-					       , 'coh ':   'Coh.'
-					       , 'imp ':   'Imp.'
-					       , 'ius ':   'Ius.'
-					       , 'infcs':  'Inf. cs.'
-					       , 'infabs': 'Inf. abs.'
-					       , 'pta ':   'Part. act.'
-					       , 'ptp ':   'Part. pass.'
-					}; break;
-				case 2:
-					buts = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
-				case 3:
-					buts = { 'm': 'Masculine', 'f': 'Feminine', '': 'N/A' }; break;
-				case 4:
-					buts = { 's': 'Singular', 'p': 'Plural', '': 'N/A' }; break;
-			}
-
-			for (k in buts) {
-				var but = $('<button></button>');
-				but.addClass('btn btn-default').attr('role', 'button');
-				but.text(buts[k]).val(k);
-				but.click(function(){
-					var ip = $('#trainer-input-'+input_count);
-					ip.val(ip.val() + $(this).val()).focus();
-					if (step < 4) {
-						stepFancyInput(step + 1);
-					} else {
-						var done = checkInput(true);
-						if ($('#trainer-input-'+input_count).parent().hasClass('has-error')) {
-							var next = $('<button></button>');
-							next.addClass('btn btn-warning').attr('role', 'button');
-							next.click(reloadVerb);
-							if (done) {
-								next.text('Next');
-							} else {
-								next.text('Skip');
-							}
-							$('#trainer-input-fancy').html(next);
-						}
-					}
-				});
-
-				$('#trainer-input-fancy').append(but).append('&nbsp;');
-			}
+	function stepFancyInput(step) {
+		$('#trainer-input-fancy').html('');
+		var buts = {};
+		switch (step) {
+			case 0:
+				buts = { 'Q ':   'Qal'
+				       , 'Hip ': 'Hiphil'
+				       , 'Ho ':  'Hophal'
+				       , 'Ni ':  'Niphal'
+				       , 'Pi ':  'Piel'
+				       , 'Pu ':  'Pual'
+				       , 'Hit ': 'Hitpael'
+				}; break;
+			case 1:
+				buts = { 'pf ':	'Pf.'
+				       , 'ipf ':   'Ipf.'
+				       , 'coh ':   'Coh.'
+				       , 'imp ':   'Imp.'
+				       , 'ius ':   'Ius.'
+				       , 'infcs':  'Inf. cs.'
+				       , 'infabs': 'Inf. abs.'
+				       , 'pta ':   'Part. act.'
+				       , 'ptp ':   'Part. pass.'
+				}; break;
+			case 2:
+				buts = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
+			case 3:
+				buts = { 'm': 'Masculine', 'f': 'Feminine', '': 'N/A' }; break;
+			case 4:
+				buts = { 's': 'Singular', 'p': 'Plural', '': 'N/A' }; break;
 		}
+
+		for (k in buts) {
+			var but = $('<button></button>');
+			but.addClass('btn btn-default').attr('role', 'button');
+			but.text(buts[k]).val(k);
+			but.click(function(){
+				var ip = $('#trainer-input-'+input_count);
+				ip.val(ip.val() + $(this).val()).focus();
+				if (step < 4) {
+					stepFancyInput(step + 1);
+				} else {
+					var done = checkInput(true);
+					if ($('#trainer-input-'+input_count).parent().hasClass('has-error')) {
+						var next = $('<button></button>');
+						next.addClass('btn btn-warning').attr('role', 'button');
+						next.click(reloadVerb);
+						if (done) {
+							next.text('Next');
+						} else {
+							next.text('Skip');
+						}
+						$('#trainer-input-fancy').html(next);
+					}
+				}
+			});
+
+			$('#trainer-input-fancy').append(but).append('&nbsp;');
+		}
+	}
 
 	function addInput() {
 		input_count++;
@@ -328,6 +328,9 @@ $(document).ready(function(){
 				tenses_abbr = data.map(function(d){return d.abbreviation;});
 			}
 		});
+
+		if (typeof reload_on_load != 'undefined' && reload_on_load)
+			reloadVerb();
 	}
 
 	$('#hebrewparsetrainer-settings input.reload-verb').change(function(){
