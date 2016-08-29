@@ -48,7 +48,7 @@ $db_stats = RandomLog
 
 $stats = [];
 foreach ($db_stats as $stat) {
-	$stats[] = "[Date.UTC" . date("(Y,n-1,d)", strtotime($stat->created_at)) . "," . $stat->count . "]";
+	$stats[] = "[Date.UTC" . date("(Y,n-1,j)", strtotime($stat->created_at)) . "," . $stat->count . "]";
 }
 $stats = "[" . implode(",", $stats) . "]";
 ?>
