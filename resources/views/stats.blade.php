@@ -42,7 +42,7 @@ use \HebrewParseTrainer\RandomLog;
 
 $db_stats = RandomLog
 	::select(DB::raw('COUNT(*) as count'), 'created_at')
-	->groupBy(DB::raw('DAY(created_at)'))
+	->groupBy(DB::raw('DATE(created_at)'))
 	->orderBy('created_at')
 	->get();
 
@@ -92,7 +92,9 @@ $stats = "[" . implode(",", $stats) . "]";
 					['month', [3]],
 					['year',  [1]]
 				]
-			}
+			},
+			pointPadding: 0.02,
+			groupPadding: 0.02
 		} },
 		tooltip: { pointFormat: '<b>{point.y}</b> requests' },
 		series: [
