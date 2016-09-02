@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>HebrewParseTrainer</title>
+		<title>ParseTrainer</title>
 		<link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="public/css/hebrewparsetrainer.css">
@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	<body role="application">
 		<div class="container" role="main">
 			<div class="page-header">
-				<h1>HebrewParseTrainer</h1>
+				<h1>ParseTrainer</h1>
 			</div>
 
 			<div class="row">
@@ -68,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						</div>
 
 						<h3>About</h3>
-						<p>&copy; 2015-16 <a href="https://camilstaps.nl">Camil Staps</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>. Source is on <a href="https://github.com/camilstaps/HebrewParseTrainer">GitHub</a>.</p>
+						<p>&copy; 2015-16 <a href="https://camilstaps.nl">Camil Staps</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>. Source is on <a href="https://github.com/HebrewTools/ParseTrainer">GitHub</a>.</p>
 						<p>Please report any mistakes to <a href="mailto:info@camilstaps.nl">info@camilstaps.nl</a>.</p>
 					</form>
 				</div>

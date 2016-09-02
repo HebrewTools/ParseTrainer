@@ -1,4 +1,4 @@
-# HebrewParseTrainer
+# ParseTrainer
 
 A simple app to practice Hebrew verbs.
 
@@ -8,8 +8,8 @@ A simple app to practice Hebrew verbs.
 
 ## Installation
 
-    $ git clone https://github.com/camilstaps/HebrewParseTrainer
-    $ cd HebrewParseTrainer
+    $ git clone https://github.com/HebrewTools/ParseTrainer
+    $ cd ParseTrainer
     $ composer install
 
 ## Configuration
@@ -48,7 +48,7 @@ You need to enable PHP and redirect everything to `server.php`. Configuration on
     server {
         listen [::]:80;
         server_name myhostname;
-        root /.../HebrewParseTrainer;
+        root /.../ParseTrainer;
         index index.php index.html index.htm;
         charset utf-8;
 
@@ -66,7 +66,7 @@ You need to enable PHP and redirect everything to `server.php`. Configuration on
         }
     }
 
-In a subdirectory, we need to enforce trailing slashes and do some special things. This configures nginx to handle the trainer from `/HebrewParseTrainer/`:
+In a subdirectory, we need to enforce trailing slashes and do some special things. This configures nginx to handle the trainer from `/ParseTrainer/`:
 
     server {
         listen [::]:80;
@@ -77,15 +77,15 @@ In a subdirectory, we need to enforce trailing slashes and do some special thing
 
         rewrite ^([^.]*[^/])$ $1/ permanent;
 
-        location ~ ^/HebrewParseTrainer/(.*)\.php$ {
-            try_files $uri $uri/ /HebrewParseTrainer/server.php$is_args$query_string;
+        location ~ ^/ParseTrainer/(.*)\.php$ {
+            try_files $uri $uri/ /ParseTrainer/server.php$is_args$query_string;
 
             # whatever you do to make PHP work
         }
 
-        rewrite /HebrewParseTrainer/?$ /HebrewParseTrainer/public/index.php;
-        location /HebrewParseTrainer {
-            try_files $uri $uri/ /HebrewParseTrainer/server.php$is_args$query_string;
+        rewrite /ParseTrainer/?$ /ParseTrainer/public/index.php;
+        location /ParseTrainer {
+            try_files $uri $uri/ /ParseTrainer/server.php$is_args$query_string;
         }
 
         location / {

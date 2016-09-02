@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HebrewParseTrainer statistics</title>
+	<title>ParseTrainer statistics</title>
 	<link rel="stylesheet" href="{{ url("/vendor/twbs/bootstrap/dist/css/bootstrap.min.css") }}">
 	<link rel="stylesheet" href="{{ url("/vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css") }}">
 	<link rel="stylesheet" href="{{ url("/public/css/hebrewparsetrainer.css") }}">
@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <body role="application">
 <div class="container" role="main">
 	<div class="page-header">
-		<h1>HebrewParseTrainer statistics</h1>
+		<h1>ParseTrainer statistics</h1>
 	</div>
 
 	<div class="row">
