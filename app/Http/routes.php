@@ -28,24 +28,40 @@
 |
 */
 
-$app->group(['prefix' => parse_url(env('APP_URL'), PHP_URL_PATH)], function ($app) {
-    
-    $app->get('/', function () use ($app) {
-        return view('trainer');
-    });
-    
-    $app->get('/stem', function () use ($app) {
-        return \HebrewParseTrainer\Stem::all();
-    });
-    
-    $app->get('/tense', function () use ($app) {
-        return \HebrewParseTrainer\Tense::all();
-    });
-    
-    $app->get('/verb/random', 'App\Http\Controllers\RandomVerbController@show');
+$app->group(
+	['prefix' => parse_url(env('APP_URL'), PHP_URL_PATH)],
+	function ($app) {
 
-    $app->get('/stats', function () use ($app) {
-        return view('stats');
-    });
-    
+		$app->get('/', function () use ($app) {
+			return view('trainer');
+		});
+
+		$app->get('/stem', function () use ($app) {
+			return \HebrewParseTrainer\Stem::all();
+		});
+
+		$app->get('/tense', function () use ($app) {
+			return \HebrewParseTrainer\Tense::all();
+		});
+
+		$app->get('/logout', function () use ($app) {
+			return response('Unauthorized.', 401)
+				->header('WWW-Authenticate', 'Basic realm="Please click OK, then Cancel to logout."');
+		});
+
+		$app->get('/verb/random', 'App\Http\Controllers\RandomVerbController@show');
+
+		$app->get('/user/create', 'App\Http\Controllers\UserController@createForm');
+		$app->post('/user/create', 'App\Http\Controllers\UserController@createForm');
+
+		$app->group(
+			['middleware' => 'auth:basic-http'],
+			function ($app) {
+
+				$app->get('/stats', function () use ($app) {
+					return view('stats');
+				});
+
+			});
+
 });

@@ -66,9 +66,9 @@ $app->singleton(
 // 	// Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
 // ]);
 
-// $app->routeMiddleware([
-
-// ]);
+$app->routeMiddleware([
+	'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -81,8 +81,12 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+
+$app->register(Illuminate\Mail\MailServiceProvider::class);
+$app->register(Arubacao\BasicAuth\BasicGuardServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -98,5 +102,7 @@ $app->singleton(
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 	require __DIR__.'/../app/Http/routes.php';
 });
+
+$app->configure('mail');
 
 return $app;
