@@ -46,6 +46,10 @@ body {
 	width: 30px;
 }
 
+#trainer {
+	margin-bottom: 70px;
+}
+
 #trainer-404 {
 	display: none;
 	padding: 15px;
