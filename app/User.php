@@ -28,6 +28,8 @@ class User extends Model implements Authenticatable {
 	public $timestamps = false;
 	protected $fillable = ['email', 'name'];
 
+	const VOTE_WEIGHT_BASE = 5;
+
 	public function changePoints($kind, $change, $verb = null) {
 		$change = new PointChange;
 		$change->user = $this->id;
@@ -38,6 +40,13 @@ class User extends Model implements Authenticatable {
 		
 		$this->points += $change;
 		$this->save();
+	}
+
+	public function voteWeight() {
+		if ($this->points <= 0)
+			return 0;
+
+		return floor(log($this->points, self::VOTE_WEIGHT_BASE));
 	}
 
 	public function setPasswordAttribute($pass) {

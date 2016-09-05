@@ -29,7 +29,10 @@
 */
 
 $app->group(
-	['prefix' => parse_url(env('APP_URL'), PHP_URL_PATH)],
+	[
+		'prefix' => parse_url(env('APP_URL'), PHP_URL_PATH),
+		'middleware' => 'login'
+	],
 	function ($app) {
 
 		$app->get('/', function () use ($app) {
@@ -44,15 +47,24 @@ $app->group(
 			return \HebrewParseTrainer\Tense::all();
 		});
 
+		$app->get('/verb/random',
+			'App\Http\Controllers\VerbController@random');
+
 		$app->get('/logout', function () use ($app) {
-			return response('Unauthorized.', 401)
-				->header('WWW-Authenticate', 'Basic realm="Please click OK, then Cancel to logout."');
+			return response('You have been logged out.', 401)
+				->header(
+					'WWW-Authenticate',
+					'Basic realm="Please click OK, then Cancel to logout."');
 		});
 
-		$app->get('/verb/random', 'App\Http\Controllers\RandomVerbController@show');
+		$app->get('/contribute', function () use ($app) {
+			return view('contribute');
+		});
 
-		$app->get('/user/create', 'App\Http\Controllers\UserController@createForm');
-		$app->post('/user/create', 'App\Http\Controllers\UserController@createForm');
+		$app->get('/user/create',
+			'App\Http\Controllers\UserController@createForm');
+		$app->post('/user/create',
+			'App\Http\Controllers\UserController@createForm');
 
 		$app->group(
 			['middleware' => 'auth:basic-http'],
@@ -61,6 +73,12 @@ $app->group(
 				$app->get('/stats', function () use ($app) {
 					return view('stats');
 				});
+
+				$app->get('/verb/{id}/vote/{choice}',
+					'App\Http\Controllers\VerbController@vote');
+
+				$app->post('/verb/suggest',
+					'App\Http\Controllers\VerbController@suggest');
 
 			});
 

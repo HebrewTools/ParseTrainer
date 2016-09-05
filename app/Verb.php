@@ -22,14 +22,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class Verb extends Model {
 
-    protected $table = 'verbs';
-    public $timestamps = false;
-    protected $fillable = ['verb', 'root', 'stem', 'tense', 'person', 'gender', 'number'];
+	protected $table = 'verbs';
+	public $timestamps = false;
+	protected $fillable = ['verb', 'root', 'stem', 'tense', 'person', 'gender', 'number'];
 
-    public function otherParsings()
-    {
-        return self::where('verb', $this->verb)->get()
-            ->filter(function($v){return $v->verb === $this->verb;});
-    }
+	const ACCEPTED_VOTE_COUNT = 1;
+
+	public function actions() {
+		return $this->hasMany('HebrewParseTrainer\VerbAction');
+	}
+
+	public function otherParsings() {
+		return self::where('verb', $this->verb)->get()
+			->filter(function($v){return $v->verb === $this->verb;});
+	}
+
+	public function voteCount() {
+		$votes = $this->actions()->where('kind', VerbAction::KIND_VOTE)->get();
+		$total = 0;
+		foreach ($votes as $vote)
+			$total += $vote->vote_weight;
+		return $total;
+	}
+
+	public function userVote(User $user) {
+		$votes = $this->actions()
+			->where('kind', VerbAction::KIND_VOTE)
+			->where('user_id', $user->id)
+			->get();
+		foreach ($votes as $vote) {
+			return $vote->vote_weight;
+		}
+		return 0;
+	}
 
 }
