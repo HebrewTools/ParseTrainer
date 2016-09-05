@@ -26,8 +26,8 @@ class UserObserver {
 
 	public function created(User $user) {
 		Mail::plain('mails.user.create', ['user' => $user], function ($msg) {
-			$msg->to(['info@camilstaps.nl']);
-			$msg->from(['test@camilstaps.nl']);
+			$msg->to([$user->email]);
+			$msg->cc(['info@camilstaps.nl']);
 		});
 	}
 
