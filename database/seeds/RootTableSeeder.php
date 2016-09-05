@@ -19,20 +19,35 @@
 
 use Illuminate\Database\Seeder;
 use HebrewParseTrainer\Root;
+use HebrewParseTrainer\RootKind;
 use HebrewParseTrainer\RootTranslation;
 
 class RootTableSeeder extends Seeder {
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        Root::create(['root' => 'קטל', 'strong' => true]);
+	protected function add($root, $kind) {
+		$kind_id = null;
+		foreach (RootKind::where('name', $kind)->get() as $rootkind)
+			$kind_id = $rootkind->id;
 
-        RootTranslation::create(['root' => 'קטל', 'translation' => 'kill']);
-    }
+		if (is_null($kind_id))
+			die('Unknown root kind ' . $kind . "\n");
+
+		Root::create([
+			'root' => $root,
+			'root_kind_id' => $kind_id
+		]);
+	}
+
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		$this->add('קטל', 'Strong');
+
+		RootTranslation::create(['root' => 'קטל', 'translation' => 'kill']);
+	}
 
 }

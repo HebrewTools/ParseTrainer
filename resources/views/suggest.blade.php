@@ -31,7 +31,7 @@ use HebrewParseTrainer\Verb;
 				<label for="suggest-stem" class="col-sm-2 control-label">Stem</label>
 				<div class="col-sm-10">
 					<select id="suggest-stem" class="form-control" name="stem">
-						@foreach(Stem::all() as $stem)
+						@foreach(Stem::orderBy('id')->get() as $stem)
 							<option value="{{ $stem->name }}">{{{ $stem->name }}}</option>
 						@endforeach
 					</select>

@@ -18,19 +18,37 @@
  */
 namespace App\Http\Controllers;
 
-use HebrewParseTrainer\Root;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
+use HebrewParseTrainer\Root;
+use HebrewParseTrainer\RootKind;
+
 class RootController extends BaseController {
 
 	public function create(Request $request) {
+		$_kinds = RootKind::all();
+		$kinds = [];
+		foreach ($_kinds as $kind)
+			$kinds[] = $kind->id;
+
+		$validator = Validator::make($request->input(), [
+			'root'         => 'required',
+			'root_kind_id' => 'in:' . implode(',', $kinds),
+		]);
+
+		if ($validator->fails()) {
+			return [
+				'success' => false,
+				'message' => $validator->errors()->first()
+			];
+		}
+
 		$root = new Root;
 		$root->root = $request->input('root');
-		$root->strong = 1;
+		$root->root_kind_id = $request->input('root_kind_id');
 		$root->save();
 
 		return [

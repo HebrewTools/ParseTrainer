@@ -20,10 +20,10 @@ namespace HebrewParseTrainer;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Root extends Model {
+class RootKind extends Model {
 
-    protected $table = 'roots';
+    protected $table = 'root_kinds';
     public $timestamps = false;
-    protected $fillable = ['root', 'root_kind_id'];
+    protected $fillable = ['strong', 'name'];
 
 }
