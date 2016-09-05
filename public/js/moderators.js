@@ -20,10 +20,17 @@ $(document).ready(function(){
 		var vote = parseInt($(this).data('vote'));
 		var verbId = $(this).data('verb');
 
-		var container = $(this).parent();
+		var container = $(this).closest('tr');
+
+		var fail = function(msg) {
+			alert('Voting failed with the message: "' + msg + '". Please try again.');
+		}
 
 		$.ajax({
 			url: app_url + 'verb/' + verbId + '/vote/' + vote,
+			error: function(jqxhr, stat, error) {
+				fail(stat);
+			},
 			success: function(data) {
 				if (!data.success) {
 					fail(data.message);
@@ -53,5 +60,35 @@ $(document).ready(function(){
 		});
 
 		return true;
+	});
+
+	$('form#suggest').submit(function(){
+		var data = $(this).serialize();
+		var form = $(this);
+
+		form.clearAlerts();
+
+		$.ajax({
+			url: app_url + 'verb/suggest',
+			method: 'post',
+			data: data,
+			error: function(jqxhr, stat, error) {
+				form.addAlert('danger', stat);
+			},
+			success: function(data) {
+				if (!data.success) {
+					form.addAlert('danger', data.message);
+					return;
+				}
+
+				if (data.accepted) {
+					form.addAlert('success', 'The new verb has been <b>accepted immediately</b>.');
+				} else {
+					form.addAlert('success', 'The new verb has been proposed for peer review.');
+				}
+			}
+		});
+
+		return false;
 	});
 });

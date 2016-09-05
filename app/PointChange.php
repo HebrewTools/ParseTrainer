@@ -1,3 +1,4 @@
+<?php
 /**
  * HebrewParseTrainer - practice Hebrew verbs
  * Copyright (C) 2015  Camil Staps <info@camilstaps.nl>
@@ -15,49 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-@font-face {
-	font-family: 'Ezra SIL';
-	src: url('fonts/EzraSIL.ttf');
-}
+namespace HebrewParseTrainer;
 
-body {
-	padding-top: 20px;
-}
+use Illuminate\Database\Eloquent\Model;
 
-.large {
-	font-size: 150%;
-}
+class PointChange extends Model {
 
-.header {
-	border-bottom: 1px solid #e5e5e5;
-	margin-bottom: 30px;
-}
+	protected $table = 'point_changes';
+	public $timestamps = false;
+	protected $dates = ['date'];
+	protected $fillable = ['kind', 'change'];
 
-.suggestions td {
-	vertical-align: middle !important;
-}
+	const KIND_SUGGESTION_ACCEPTED = 1;
+	const KIND_MANUAL = 3;
 
-.suggestions td.vote-cell {
-	width: 30px;
-}
+	const POINTS_SUGGESTION_ACCEPTED = 2;
 
-#trainer-404 {
-	display: none;
-	padding: 15px;
-}
-
-#trainer-input-fancy {
-	margin-bottom: 20px;
-}
-
-#trainer-input-help {
-	display: none;
-}
-
-.hebrew {
-	font-family: 'Ezra SIL', David;
-}
-
-.hebrew-large {
-	font-size: 40px;
 }

@@ -11,18 +11,16 @@ use HebrewParseTrainer\Verb;
 				<th>Verb</th>
 				<th>Root</th>
 				<th>Parsing</th>
-				<th>Votes</th>
+				<th colspan="3">Votes</th>
 			</tr>
 			@forelse(Verb::where('active', 0)->orderBy('verb')->get() as $verb)
 				<tr>
 					<td class="large">{{ $verb->verb }}</td>
 					<td class="large">{{ $verb->root }}</td>
 					<td>{{ $verb->stem }} {{ $verb->tense }} {{ $verb->person }}{{ $verb->gender }}{{ $verb->number }}</td>
-					<td>
-						<button data-vote="0" data-verb="{{ $verb->id }}" class="vote btn btn-{{ $verb->userVote(Auth::user()) < 0 ? 'danger' : 'default' }}">-</button>
-						<span class="vote-count btn">{{ $verb->voteCount() }}</span>
-						<button data-vote="1" data-verb="{{ $verb->id }}" class="vote btn btn-{{ $verb->userVote(Auth::user()) > 0 ? 'success' : 'default' }}">+</button>
-					</td>
+					<td class="vote-cell"><button data-vote="0" data-verb="{{ $verb->id }}" class="vote btn btn-{{ $verb->userVote(Auth::user()) < 0 ? 'danger' : 'default' }}">-</button></td>
+					<td class="vote-cell"><span class="vote-count btn">{{ $verb->voteCount() }}</span></td>
+					<td class="vote-cell"><button data-vote="1" data-verb="{{ $verb->id }}" class="vote btn btn-{{ $verb->userVote(Auth::user()) > 0 ? 'success' : 'default' }}">+</button></td>
 				</tr>
 			@empty
 				<tr><td colspan="4">There are no active suggestions. Why not add a verb yourself?</td></tr>

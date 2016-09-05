@@ -18,12 +18,17 @@
  */
 namespace App\Http\Controllers;
 
+use HebrewParseTrainer\PointChange;
+use HebrewParseTrainer\Stem;
+use HebrewParseTrainer\Tense;
 use HebrewParseTrainer\Verb;
 use HebrewParseTrainer\VerbAction;
 use HebrewParseTrainer\RandomLog;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class VerbController extends BaseController {
@@ -48,6 +53,82 @@ class VerbController extends BaseController {
 		return response()->json($obj);
 	}
 
+	public function suggest(Request $request) {
+		$_tenses = Tense::all();
+		$tenses = [];
+		foreach ($_tenses as $tense)
+			$tenses[] = $tense->name;
+
+		$_stems = Stem::all();
+		$stems = [];
+		foreach ($_stems as $stem)
+			$stems[] = $stem->name;
+
+		$validator = Validator::make($request->input(), [
+			'verb'   => 'required',
+			'root'   => 'required',
+			'stem'   => 'in:' . implode(',', $stems),
+			'tense'  => 'in:' . implode(',', $tenses),
+			'person' => 'in:,1,2,3',
+			'gender' => 'in:,m,f',
+			'number' => 'in:,s,p',
+		]);
+
+		if ($validator->fails()) {
+			return [
+				'success' => false,
+				'message' => $validator->errors()->first()
+			];
+		}
+
+		$verb = new Verb;
+		$verb->verb = $request->input('verb');
+		$verb->root = $request->input('root');
+		$verb->stem = $request->input('stem');
+		$verb->tense = $request->input('tense');
+		$verb->person = $request->input('person') ? $request->input('person') : null;
+		$verb->gender = $request->input('gender') ? $request->input('gender') : null;
+		$verb->number = $request->input('number') ? $request->input('number') : null;
+		$verb->active = 0;
+		$verb->save();
+
+		$action = new VerbAction;
+		$action->kind = VerbAction::KIND_SUGGEST;
+		$action->user_id = Auth::user()->id;
+		$action->verb_id = $verb->id;
+		$action->save();
+
+		$this->vote(1, $verb->id);
+
+		return [
+			'success' => true,
+			'id' => $verb->id,
+			'accepted' => $verb->active != 0
+		];
+	}
+
+	protected function checkAccept($verb) {
+		if ($verb->voteCount() < Verb::ACCEPTED_VOTE_COUNT)
+			return false;
+
+		$verb->active = 1;
+		$verb->save();
+
+		if (!is_null($user = $verb->suggestedBy())) {
+			$ptchange = new PointChange;
+			$ptchange->kind = PointChange::KIND_SUGGESTION_ACCEPTED;
+			$ptchange->change = PointChange::POINTS_SUGGESTION_ACCEPTED;
+			$ptchange->user_id = $user->id;
+			$ptchange->verb_id = $verb->id;
+			$ptchange->save();
+
+			$user->points += PointChange::POINTS_SUGGESTION_ACCEPTED;
+			$user->save();
+		}
+
+		return true;
+	}
+
 	public function vote($choice, $verb_id) {
 		$verb = Verb::findOrFail($verb_id);
 		$user = Auth::user();
@@ -68,17 +149,12 @@ class VerbController extends BaseController {
 		$vote->vote_weight = ($choice == 1 ? 1 : -1) * $user->voteWeight();
 		$vote->save();
 
-		$message = 'You have voted.';
-
-		if ($verb->voteCount() >= Verb::ACCEPTED_VOTE_COUNT) {
-			$verb->active = 1;
-			$verb->save();
-		}
+		$accepted = $this->checkAccept($verb);
 
 		return [
 			'success' => true,
 			'vote_weight' => $user->voteWeight(),
-			'accepted' => (bool) $verb->active,
+			'accepted' => $accepted,
 			'new_vote_count' => $verb->voteCount()
 		];
 	}

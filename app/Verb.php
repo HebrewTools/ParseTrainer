@@ -26,7 +26,7 @@ class Verb extends Model {
 	public $timestamps = false;
 	protected $fillable = ['verb', 'root', 'stem', 'tense', 'person', 'gender', 'number'];
 
-	const ACCEPTED_VOTE_COUNT = 1;
+	const ACCEPTED_VOTE_COUNT = 5;
 
 	public function actions() {
 		return $this->hasMany('HebrewParseTrainer\VerbAction');
@@ -54,6 +54,18 @@ class Verb extends Model {
 			return $vote->vote_weight;
 		}
 		return 0;
+	}
+
+	public function suggestedBy() {
+		$suggs = $this->actions()
+			->where('kind', VerbAction::KIND_SUGGEST)
+			->get();
+
+		foreach ($suggs as $sugg) {
+			return $sugg->user;
+		}
+
+		return null;
 	}
 
 }

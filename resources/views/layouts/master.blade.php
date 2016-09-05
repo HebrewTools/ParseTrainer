@@ -60,6 +60,7 @@ if (Auth::check()) {
 
 		<script src="{{ env('APP_URL') }}vendor/components/jquery/jquery.min.js"></script>
 		<script src="{{ env('APP_URL') }}vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="{{ env('APP_URL') }}public/js/alerts.js"></script>
 		<script src="{{ env('APP_URL') }}public/js/hebrewparsetrainer.js"></script>
 		@if(Auth::check())
 			<script src="{{ env('APP_URL') }}public/js/moderators.js"></script>
