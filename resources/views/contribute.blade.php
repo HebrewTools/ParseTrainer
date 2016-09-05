@@ -29,6 +29,9 @@
 		<div class="col-lg-6">
 			@include('suggest')
 		</div>
+		<div class="col-lg-6">
+			@include('add_root')
+		</div>
 	</div>
 @endif
 

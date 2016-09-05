@@ -80,6 +80,9 @@ $app->group(
 				$app->post('/verb/suggest',
 					'App\Http\Controllers\VerbController@suggest');
 
+				$app->post('/root/create',
+					'App\Http\Controllers\RootController@create');
+
 			});
 
 });

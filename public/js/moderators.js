@@ -63,7 +63,6 @@ $(document).ready(function(){
 	});
 
 	$('form#suggest').submit(function(){
-		var data = $(this).serialize();
 		var form = $(this);
 
 		form.clearAlerts();
@@ -71,7 +70,7 @@ $(document).ready(function(){
 		$.ajax({
 			url: app_url + 'verb/suggest',
 			method: 'post',
-			data: data,
+			data: form.serialize(),
 			error: function(jqxhr, stat, error) {
 				form.addAlert('danger', stat);
 			},
@@ -86,6 +85,31 @@ $(document).ready(function(){
 				} else {
 					form.addAlert('success', 'The new verb has been proposed for peer review.');
 				}
+			}
+		});
+
+		return false;
+	});
+
+	$('form#add-root').submit(function(){
+		var form = $(this);
+
+		form.clearAlerts();
+
+		$.ajax({
+			url: app_url + 'root/create',
+			method: 'post',
+			data: form.serialize(),
+			error: function(jqxhr, stat, error) {
+				form.addAlert('danger', stat);
+			},
+			success: function(data) {
+				if (!data.success) {
+					form.addAlert('danger', data.message);
+					return;
+				}
+
+				window.location = window.location;
 			}
 		});
 
