@@ -4,7 +4,7 @@ A simple app to practice Hebrew verbs.
 
 ## Demo
 
-[demo.camilstaps.nl/HebrewParseTrainer][demo]
+[parse.hebrewtools.org][demo]
 
 ## Installation
 
@@ -103,6 +103,6 @@ GPL v3.0, see the LICENSE file.
 
 This project uses the [EzraSIL][ezrasil] font which is licensed under the Open Font License.
 
-[demo]: https://demo.camilstaps.nl/HebrewParseTrainer
+[demo]: https://parse.hebrewtools.org/
 [ezrasil]: http://scripts.sil.org/cms/scripts/page.php?item_id=EzraSIL_Home
 
