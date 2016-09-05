@@ -1,7 +1,12 @@
 <?php
 use HebrewParseTrainer\User;
+
+$users = User::where('isadmin', false)
+	->orderBy('points', 'desc')
+	->take(3)
+	->get();
 ?>
-@if(count(User::all()) > 0)
+@if(count($users) > 0)
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Top contributors</h3>
@@ -16,7 +21,7 @@ use HebrewParseTrainer\User;
 				</tr>
 			</thead>
 			<tbody>
-			@foreach(User::orderBy('points', 'desc')->take(3)->get() as $user)
+			@foreach($users as $user)
 				<tr>
 					<td><img src="https://gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}?s=40"/></td>
 					<td>{{{ $user->name }}}</td>

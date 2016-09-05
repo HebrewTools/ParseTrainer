@@ -26,7 +26,7 @@ class User extends Model implements Authenticatable {
 
 	protected $table = 'users';
 	public $timestamps = false;
-	protected $fillable = ['email', 'name'];
+	protected $fillable = ['email', 'name', 'isadmin'];
 
 	const VOTE_WEIGHT_BASE = 5;
 
@@ -43,6 +43,9 @@ class User extends Model implements Authenticatable {
 	}
 
 	public function voteWeight() {
+		if ($this->isadmin)
+			return Verb::ACCEPTED_VOTE_COUNT;
+
 		if ($this->points <= 0)
 			return 0;
 
