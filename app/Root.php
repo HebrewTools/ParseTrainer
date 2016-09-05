@@ -22,8 +22,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Root extends Model {
 
-    protected $table = 'roots';
-    public $timestamps = false;
-    protected $fillable = ['root', 'root_kind_id'];
+	protected $table = 'roots';
+	public $timestamps = false;
+	protected $fillable = ['root', 'root_kind_id'];
+
+	public function kind() {
+		return $this->belongsTo('HebrewParseTrainer\RootKind', 'root_kind_id');
+	}
 
 }

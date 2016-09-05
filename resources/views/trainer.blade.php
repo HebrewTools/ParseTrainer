@@ -1,10 +1,16 @@
+<?php
+use HebrewParseTrainer\Root;
+use HebrewParseTrainer\Stem;
+use HebrewParseTrainer\Tense;
+?>
+
 @extends('layouts.with_sidebar')
 
 @section('sidebar')
 <form id="hebrewparsetrainer-settings">
 	<div class="form-group">
 		<h3>Stems</h3>
-		@foreach (\HebrewParseTrainer\Stem::all() as $stem)
+		@foreach (Stem::all() as $stem)
 			<div class="checkbox">
 				<label><input class="reload-verb" type="checkbox" name="stem" value="{{{ $stem->name }}}" checked="checked"/> {{{ $stem->name }}}</label>
 			</div>
@@ -13,7 +19,7 @@
 
 	<div class="form-group">
 		<h3>Tenses</h3>
-		@foreach (\HebrewParseTrainer\Tense::all() as $tense)
+		@foreach (Tense::all() as $tense)
 			<div class="checkbox">
 				<label><input class="reload-verb" type="checkbox" name="tense" value="{{{ $tense->name }}}" checked="checked"/> {{{ $tense->name }}}</label>
 			</div>
@@ -22,9 +28,9 @@
 
 	<div class="form-group">
 		<h3>Roots</h3>
-		@foreach (\HebrewParseTrainer\Root::all() as $root)
+		@foreach (Root::orderBy('root_kind_id')->get() as $root)
 			<div class="checkbox">
-				<label class="hebrew"><input class="reload-verb" type="checkbox" name="root" value="{{{ $root->root }}}" checked="checked"/> {{{ $root->root }}}</label>
+				<label class="hebrew"><input class="reload-verb" type="checkbox" name="root" value="{{{ $root->root }}}" checked="checked"/> {{{ $root->root }}} ({{{ $root->kind->name }}})</label>
 			</div>
 		@endforeach
 	</div>
