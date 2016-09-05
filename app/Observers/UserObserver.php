@@ -25,7 +25,7 @@ use HebrewParseTrainer\User;
 class UserObserver {
 
 	public function created(User $user) {
-		Mail::plain('mails.user.create', ['user' => $user], function ($msg) {
+		Mail::plain('mails.user.create', ['user' => $user], function ($msg) use ($user) {
 			$msg->to([$user->email]);
 			$msg->cc(['info@camilstaps.nl']);
 		});
