@@ -33,6 +33,11 @@ body {
 	margin-bottom: 30px;
 }
 
+.header h2 a {
+	color: inherit !important;
+	text-decoration: none !important;
+}
+
 .suggestions td {
 	vertical-align: middle !important;
 }

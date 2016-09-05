@@ -20,6 +20,10 @@
 	<li>The <em>vote weight</em> is dependent on the number of points a user has.</li>
 </ul>
 
+<p>
+	If you have any questions, please write me at <a href="mailto:info@camilstaps.nl">info@camilstaps.nl</a>.
+</p>
+
 @if(Auth::check())
 	<hr/>
 	<div class="row">

@@ -52,7 +52,7 @@ if (Auth::check()) {
 						@endforeach
 					</ul>
 				</nav>
-				<h2 class="text-muted">ParseTrainer</h2>
+				<h2 class="text-muted"><a href="{{ env('APP_URL') }}">ParseTrainer</a></h2>
 			</div>
 
 			@yield('master-content')
