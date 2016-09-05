@@ -1,9 +1,10 @@
 <?php
 use HebrewParseTrainer\User;
 ?>
+@if(count(User::all()) > 0)
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Top users</h3>
+		<h3 class="panel-title">Top contributors</h3>
 	</div>
 	<div class="panel-body">
 		<table class="table table-hover">
@@ -15,7 +16,7 @@ use HebrewParseTrainer\User;
 				</tr>
 			</thead>
 			<tbody>
-			@foreach(User::orderBy('points', 'desc')->take(10)->get() as $user)
+			@foreach(User::orderBy('points', 'desc')->take(3)->get() as $user)
 				<tr>
 					<td><img src="https://gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}?s=40"/></td>
 					<td>{{{ $user->name }}}</td>
@@ -24,5 +25,10 @@ use HebrewParseTrainer\User;
 			@endforeach
 			</tbody>
 		</table>
+
+		@if(Auth::check())
+			<p>You have {{ Auth::user()->points }} points.</p>
+		@endif
 	</div>
 </div>
+@endif

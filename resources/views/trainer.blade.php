@@ -66,6 +66,28 @@ use HebrewParseTrainer\Tense;
 	<button type="button" class="btn btn-default btn-xs" id="show-hide-help">Show help</button>
 </div>
 
+<hr/>
+
+<div class="row">
+	<div class="col-md-6">
+		@include('user.top')
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Contribute!</h3>
+			</div>
+			<div class="panel-body">
+				<p>If this app is useful to you, please consider <a href="{{ env('APP_URL') }}contribute">contributing</a> by adding more verbs to the database!</p>
+				@if(!Auth::check())
+					<a class="btn btn-success" href="{{ env('APP_URL') }}user/create">Sign up</a>
+					or <a href="{{ env('APP_URL') }}contribute?login=yes">login</a>
+				@endif
+			</div>
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
 	var reload_on_load = true;
 </script>
