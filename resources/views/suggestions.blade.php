@@ -7,12 +7,15 @@ use HebrewParseTrainer\Verb;
 	</div>
 	<div class="panel-body">
 		<table class="table table-hover table-condensed suggestions">
-			<tr>
-				<th>Verb</th>
-				<th>Root</th>
-				<th>Parsing</th>
-				<th colspan="3">Votes</th>
-			</tr>
+			<thead>
+				<tr>
+					<th>Verb</th>
+					<th>Root</th>
+					<th>Parsing</th>
+					<th colspan="3">Votes</th>
+				</tr>
+			</thead>
+			<tbody>
 			@forelse(Verb::where('active', 0)->orderBy('verb')->get() as $verb)
 				<tr>
 					<td class="large">{{ $verb->verb }}</td>
@@ -25,6 +28,7 @@ use HebrewParseTrainer\Verb;
 			@empty
 				<tr><td colspan="4">There are no active suggestions. Why not add a verb yourself?</td></tr>
 			@endforelse
+			</tbody>
 		</table>
 	</div>
 </div>

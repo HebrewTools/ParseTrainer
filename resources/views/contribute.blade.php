@@ -27,16 +27,24 @@
 @if(Auth::check())
 	<hr/>
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-md-6">
 			@include('suggestions')
 		</div>
-		<div class="col-lg-6">
+		<div class="col-lg-4 col-md-6">
 			@include('suggest')
 		</div>
-		<div class="col-lg-6">
+		<div class="col-lg-2 col-md-6">
 			@include('add_root')
 		</div>
 	</div>
 @endif
+
+<hr/>
+
+<div class="row">
+	<div class="col-md-6 col-lg-4">
+		@include('user.top')
+	</div>
+</div>
 
 @endsection
