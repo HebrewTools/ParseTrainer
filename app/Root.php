@@ -30,4 +30,8 @@ class Root extends Model {
 		return $this->belongsTo('HebrewParseTrainer\RootKind', 'root_kind_id');
 	}
 
+	public function verbs() {
+		return $this->hasMany('HebrewParseTrainer\Verb', 'root', 'root');
+	}
+
 }

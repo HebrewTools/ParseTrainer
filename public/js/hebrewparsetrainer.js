@@ -152,7 +152,7 @@ $(document).ready(function(){
 
 		var stems = $('input[name="stem"]:checked').map(function(){return this.value;});
 		var tenses = $('input[name="tense"]:checked').map(function(){return this.value;});
-		var roots = $('input[name="root"]:checked').map(function(){return this.value;});
+		var roots = $('select[name="root"]').val();
 
 		$.ajax('verb/random/', {
 			data: {
@@ -333,7 +333,7 @@ $(document).ready(function(){
 			reloadVerb();
 	}
 
-	$('#hebrewparsetrainer-settings input.reload-verb').change(function(){
+	$('#hebrewparsetrainer-settings .reload-verb').change(function(){
 		reloadVerb();
 	});
 
