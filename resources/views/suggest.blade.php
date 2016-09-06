@@ -14,14 +14,14 @@ use HebrewParseTrainer\Verb;
 			<div class="form-group">
 				<label for="suggest-verb" class="col-sm-2 control-label">Verb</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="suggest-verb" name="verb" placeholder="קָטַל"/>
+					<input type="text" class="form-control hebrew input-lg" id="suggest-verb" name="verb" placeholder="קָטַל"/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="suggest-root" class="col-sm-2 control-label">Root</label>
 				<div class="col-sm-10">
-					<select id="suggest-root" class="form-control" name="root">
-						@foreach(Root::all() as $root)
+					<select id="suggest-root" class="form-control hebrew input-lg" name="root">
+						@foreach(Root::orderBy('root')->get() as $root)
 							<option value="{{ $root->root }}">{{{ $root->root }}}</option>
 						@endforeach
 					</select>

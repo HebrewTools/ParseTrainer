@@ -1,3 +1,6 @@
+<?php
+use HebrewParseTrainer\Verb;
+?>
 @extends('layouts.master')
 
 @section('master-content')
@@ -15,7 +18,7 @@
 <ul>
 	<li>Any user can <em>suggest new verbs</em>.</li>
 	<li>These have to be <em>peer-reviewed</em> by other contributors.</li>
-	<li>It has to get <em>five</em> votes to be accepted.</li>
+	<li>It has to get <em>{{ Verb::ACCEPTED_VOTE_COUNT }}</em> votes to be accepted.</li>
 	<li>Contributors <em>earn points</em> for all accepted verbs they suggested.</li>
 	<li>The <em>vote weight</em> is dependent on the number of points a user has.</li>
 </ul>

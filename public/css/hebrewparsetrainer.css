@@ -64,7 +64,12 @@ body {
 }
 
 .hebrew {
+	direction: rtl;
 	font-family: 'Ezra SIL', David;
+}
+
+.ltr {
+	direction: ltr;
 }
 
 .hebrew-large {

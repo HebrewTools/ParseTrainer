@@ -1,5 +1,13 @@
 <?php
 use HebrewParseTrainer\Verb;
+
+$suggestions = Verb::where('active', 0)
+	->orderBy('root')
+	->orderBy('tense', 'desc')
+	->orderBy('number')
+	->orderBy('person', 'desc')
+	->orderBy('gender')
+	->get();
 ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -16,10 +24,10 @@ use HebrewParseTrainer\Verb;
 				</tr>
 			</thead>
 			<tbody>
-			@forelse(Verb::where('active', 0)->orderBy('verb')->get() as $verb)
+			@forelse($suggestions as $verb)
 				<tr>
-					<td class="large">{{ $verb->verb }}</td>
-					<td class="large">{{ $verb->root }}</td>
+					<td class="large hebrew text-center">{{ $verb->verb }}</td>
+					<td class="large hebrew text-center">{{ $verb->root }}</td>
 					<td>{{ $verb->stem }} {{ $verb->tense }} {{ $verb->person }}{{ $verb->gender }}{{ $verb->number }}</td>
 					<td class="vote-cell"><button data-vote="0" data-verb="{{ $verb->id }}" class="vote btn btn-{{ $verb->userVote(Auth::user()) < 0 ? 'danger' : 'default' }}">-</button></td>
 					<td class="vote-cell"><span class="vote-count btn">{{ $verb->voteCount() }}</span></td>

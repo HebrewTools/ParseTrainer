@@ -10,7 +10,7 @@ use HebrewParseTrainer\RootKind;
 			<div class="alerts"></div>
 			<div class="form-group">
 				<label for="add-root-root">Root</label>
-				<input type="text" class="form-control" id="add-root-root" name="root" placeholder="קטל"/>
+				<input type="text" class="form-control hebrew input-lg" id="add-root-root" name="root" placeholder="קטל"/>
 			</div>
 			<div class="form-group">
 				<label for="add-root-kind">Kind</label>
