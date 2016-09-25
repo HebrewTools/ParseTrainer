@@ -2,7 +2,9 @@
 use \HebrewParseTrainer\RandomLog;
 
 $db_stats = RandomLog
-	::select(DB::raw('COUNT(*) as count'), 'created_at')
+	::select(
+		DB::raw('COUNT(*) as count'),
+		DB::raw('DATE(created_at) as created_at'))
 	->groupBy(DB::raw('DATE(created_at)'))
 	->orderBy('created_at')
 	->get();
@@ -21,7 +23,9 @@ foreach ($db_stats as $stat) {
 $stats['requests'] = "[" . implode(",", $stats['requests']) . "]";
 
 $db_stats = RandomLog
-	::select(DB::raw('COUNT(DISTINCT `ip`) as count'), 'created_at')
+	::select(
+		DB::raw('COUNT(DISTINCT `ip`) as count'),
+		DB::raw('DATE(created_at) as created_at'))
 	->groupBy(DB::raw('DATE(created_at)'))
 	->orderBy('created_at')
 	->get();

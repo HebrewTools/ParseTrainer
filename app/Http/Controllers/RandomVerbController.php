@@ -22,9 +22,8 @@ use HebrewParseTrainer\Verb;
 use HebrewParseTrainer\RandomLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Laravel\Lumen\Routing\Controller as BaseController;
 
-class RandomVerbController extends BaseController {
+class RandomVerbController extends Controller {
 
 	public function show()
 	{

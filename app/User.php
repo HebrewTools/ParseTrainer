@@ -19,10 +19,16 @@
 namespace HebrewParseTrainer;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
-class User extends Model implements Authenticatable {
+class User extends Model implements Authenticatable, CanResetPassword {
+
+	use CanResetPasswordTrait;
+	use Notifiable;
 
 	protected $table = 'users';
 	public $timestamps = false;
@@ -52,10 +58,6 @@ class User extends Model implements Authenticatable {
 		return floor(log($this->points, self::VOTE_WEIGHT_BASE));
 	}
 
-	public function setPasswordAttribute($pass) {
-		$this->attributes['password'] = Hash::make($pass);
-	}
-
 	public function verifyPassword($pass) {
 		if (!Hash::check($pass, $this->password))
 			return false;
@@ -81,14 +83,16 @@ class User extends Model implements Authenticatable {
 	}
 
 	public function getRememberToken() {
-		return null;
+		return $this->remember_token;
 	}
 
 	public function setRememberToken($token) {
+		$this->remember_token = $token;
+		$this->save();
 	}
 
 	public function getRememberTokenName() {
-		return null;
+		return 'remember_token';
 	}
 
 }

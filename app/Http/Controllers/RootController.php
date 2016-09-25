@@ -21,12 +21,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Lumen\Routing\Controller as BaseController;
 
 use HebrewParseTrainer\Root;
 use HebrewParseTrainer\RootKind;
 
-class RootController extends BaseController {
+class RootController extends Controller {
 
 	public function create(Request $request) {
 		$_kinds = RootKind::all();

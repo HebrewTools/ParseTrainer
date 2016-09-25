@@ -9,8 +9,8 @@ use HebrewParseTrainer\Verb;
 </p>
 
 @if(!Auth::check())
-	<a class="btn btn-lg btn-primary" href="{{ env('APP_URL') }}contribute?login=yes">Login</a>
-	<a class="btn btn-lg btn-success" href="{{ env('APP_URL') }}user/create">Sign up</a>
+	<a class="btn btn-lg btn-primary" href="{{ url('/login') }}">Login</a>
+	<a class="btn btn-lg btn-success" href="{{ url('/register') }}">Sign up</a>
 @endif
 
 <h3>Here's how it works:</h3>

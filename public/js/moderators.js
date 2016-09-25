@@ -54,7 +54,7 @@ $(document).ready(function(){
 
 				if (data.accepted) {
 					alert('This verb has now been accepted!');
-					container.parent().remove();
+					container.remove();
 				}
 			}
 		});

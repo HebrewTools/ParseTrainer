@@ -82,10 +82,10 @@ use HebrewParseTrainer\Tense;
 				<h3 class="panel-title">Contribute!</h3>
 			</div>
 			<div class="panel-body">
-				<p>If this app is useful to you, please consider <a href="{{ env('APP_URL') }}contribute">contributing</a> by adding more verbs to the database!</p>
+				<p>If this app is useful to you, please consider <a href="{{ url('/contribute') }}">contributing</a> by adding more verbs to the database!</p>
 				@if(!Auth::check())
-					<a class="btn btn-success" href="{{ env('APP_URL') }}user/create">Sign up</a>
-					or <a href="{{ env('APP_URL') }}contribute?login=yes">login</a>
+					<a class="btn btn-success" href="{{ url('/register') }}">Sign up</a>
+					or <a href="{{ url('/login') }}">login</a>
 				@endif
 			</div>
 		</div>

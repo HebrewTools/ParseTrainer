@@ -29,9 +29,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Lumen\Routing\Controller as BaseController;
 
-class VerbController extends BaseController {
+class VerbController extends Controller {
 
 	public function random() {
 		$verbs = Verb::where('active', 1)->get();
@@ -129,7 +128,7 @@ class VerbController extends BaseController {
 		return true;
 	}
 
-	public function vote($choice, $verb_id) {
+	public function vote($verb_id, $choice) {
 		$verb = Verb::findOrFail($verb_id);
 		$user = Auth::user();
 

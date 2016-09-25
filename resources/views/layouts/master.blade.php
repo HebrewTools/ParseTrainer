@@ -28,18 +28,21 @@ $menu = [
 
 if (Auth::check()) {
 	$menu['Statistics'] = ['stats', 'stats'];
-	$menu['Logout'] = ['logout', 'logout'];
 }
 ?>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8"/>
+		<meta name="csrf-token" content="{{ csrf_token() }}"/>
+
 		<title>ParseTrainer</title>
-		<link rel="stylesheet" href="{{ env('APP_URL') }}vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="{{ env('APP_URL') }}public/css/hebrewparsetrainer.css">
+
+		<link rel="stylesheet" href="{{ asset('vendor/twbs/bootstrap/dist/css/bootstrap.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('public/css/hebrewparsetrainer.css') }}"/>
 
 		<script type="text/javascript">
 			var app_url = '{{ env('APP_URL') }}';
+			window.Laravel = <?php echo json_encode([ 'csrfToken' => csrf_token() ]); ?>;
 		</script>
 	</head>
 	<body role="application">
@@ -48,22 +51,29 @@ if (Auth::check()) {
 				<nav>
 					<ul class="nav nav-pills pull-right">
 						@foreach($menu as $name => $link)
-							<li role="presentation" class="{{ Request::is($link[0]) ? 'active' : '' }}"><a href="{{ env('APP_URL') }}{{ $link[1] }}">{{ $name }}</a></li>
+							<li role="presentation" class="{{ Request::is($link[0]) ? 'active' : '' }}"><a href="{{ url($link[1]) }}">{{ $name }}</a></li>
 						@endforeach
+						@if(Auth::check())
+							<li role="presentation"><a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
+						@endif
 					</ul>
 				</nav>
-				<h2 class="text-muted"><a href="{{ env('APP_URL') }}">ParseTrainer</a></h2>
+				<h2 class="text-muted"><a href="{{ url('/') }}">ParseTrainer</a></h2>
 			</div>
 
 			@yield('master-content')
 		</div>
 
-		<script src="{{ env('APP_URL') }}vendor/components/jquery/jquery.min.js"></script>
-		<script src="{{ env('APP_URL') }}vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="{{ env('APP_URL') }}public/js/alerts.js"></script>
-		<script src="{{ env('APP_URL') }}public/js/hebrewparsetrainer.js"></script>
+		<script src="{{ asset('vendor/components/jquery/jquery.min.js') }}"></script>
+		<script src="{{ asset('vendor/twbs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('public/js/alerts.js') }}"></script>
+		<script src="{{ asset('public/js/hebrewparsetrainer.js') }}"></script>
 		@if(Auth::check())
-			<script src="{{ env('APP_URL') }}public/js/moderators.js"></script>
+			<script src="{{ asset('public/js/moderators.js') }}"></script>
+
+			<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display:none;">
+				{{ csrf_field() }}
+			</form>
 		@endif
 	</body>
 </html>
