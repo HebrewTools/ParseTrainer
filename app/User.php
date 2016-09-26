@@ -71,7 +71,7 @@ class User extends Model implements Authenticatable, CanResetPassword {
 	}
 
 	public function getAuthIdentifierName() {
-		return $this->email;
+		return 'id';
 	}
 
 	public function getAuthIdentifier() {
