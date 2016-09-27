@@ -3,6 +3,7 @@ use HebrewParseTrainer\Verb;
 
 $suggestions = Verb::where('active', 0)
 	->orderBy('root')
+	->orderBy('stem', 'desc')
 	->orderBy('tense', 'desc')
 	->orderBy('number')
 	->orderBy('person', 'desc')
