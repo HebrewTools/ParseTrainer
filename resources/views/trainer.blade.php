@@ -73,10 +73,7 @@ use HebrewParseTrainer\Tense;
 <hr/>
 
 <div class="row">
-	<div class="col-md-6">
-		@include('user.top')
-	</div>
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Contribute!</h3>
@@ -85,7 +82,7 @@ use HebrewParseTrainer\Tense;
 				<p>If this app is useful to you, please consider <a href="{{ url('/contribute') }}">contributing</a> by adding more verbs to the database!</p>
 				@if(!Auth::check())
 					<a class="btn btn-success" href="{{ url('/register') }}">Sign up</a>
-					or <a href="{{ url('/login') }}">login</a>
+					<a class="btn btn-primary" href="{{ url('/login') }}">Login</a>
 				@endif
 			</div>
 		</div>

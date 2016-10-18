@@ -23,7 +23,7 @@ $users = User::where('isadmin', false)
 			<tbody>
 			@foreach($users as $user)
 				<tr>
-					<td><img src="https://gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}?s=40"/></td>
+					<td><a href="http://gravatar.com"><img src="https://gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}?s=40"/></a></td>
 					<td>{{{ $user->name }}}</td>
 					<td>{{{ $user->points }}}</td>
 				</tr>

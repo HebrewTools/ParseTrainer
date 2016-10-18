@@ -40,14 +40,14 @@ use HebrewParseTrainer\Verb;
 			@include('add_root')
 		</div>
 	</div>
-@endif
 
-<hr/>
+	<hr/>
 
-<div class="row">
-	<div class="col-md-6 col-lg-4">
-		@include('user.top')
+	<div class="row">
+		<div class="col-md-6 col-lg-4">
+			@include('user.top')
+		</div>
 	</div>
-</div>
+@endif
 
 @endsection
