@@ -18,21 +18,16 @@
  */
 namespace HebrewParseTrainer;
 
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\CanResetPassword;
-use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\User as FoundationUser;
 
-class User extends Model implements Authenticatable, CanResetPassword {
-
-	use CanResetPasswordTrait;
-	use Notifiable;
+class User extends FoundationUser {
 
 	protected $table = 'users';
 	public $timestamps = false;
-	protected $fillable = ['email', 'name', 'isadmin'];
+	protected $fillable = ['email', 'name', 'password', 'isadmin'];
+	protected $hidden = ['password', 'remember_token'];
 
 	const VOTE_WEIGHT_BASE = 5;
 
@@ -56,43 +51,6 @@ class User extends Model implements Authenticatable, CanResetPassword {
 			return 0;
 
 		return floor(log($this->points, self::VOTE_WEIGHT_BASE));
-	}
-
-	public function verifyPassword($pass) {
-		if (!Hash::check($pass, $this->password))
-			return false;
-
-		if (Hash::needsRehash($this->password)) {
-			$this->password = $pass;
-			$this->save();
-		}
-
-		return true;
-	}
-
-	public function getAuthIdentifierName() {
-		return 'id';
-	}
-
-	public function getAuthIdentifier() {
-		return $this->id;
-	}
-
-	public function getAuthPassword() {
-		return $this->password;
-	}
-
-	public function getRememberToken() {
-		return $this->remember_token;
-	}
-
-	public function setRememberToken($token) {
-		$this->remember_token = $token;
-		$this->save();
-	}
-
-	public function getRememberTokenName() {
-		return 'remember_token';
 	}
 
 }

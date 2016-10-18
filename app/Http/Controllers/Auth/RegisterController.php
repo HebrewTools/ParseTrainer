@@ -67,7 +67,7 @@ class RegisterController extends Controller
 			'email' => $data['email'],
 		]);
 
-		$user->password = $data['password'];
+		$user->password = bcrypt($data['password']);
 
 		$user->save();
 
