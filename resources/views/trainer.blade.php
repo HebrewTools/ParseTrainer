@@ -28,13 +28,13 @@ use HebrewParseTrainer\Tense;
 
 	<div class="form-group">
 		<h3>Roots</h3>
-		<select name="root" class="reload-verb form-control hebrew ltr" multiple="multiple">
 		@foreach (Root::orderBy('root_kind_id')->get() as $root)
 			@if ($root->verbs()->where('active', 1)->count() > 0)
-					<option value="{{{ $root->root }}}" selected="selected">{{{ $root->root }}} ({{{ $root->kind->name }}})</option>
+				<div class="checkbox">
+					<label><input class="reload-verb" type="checkbox" name="root" value="{{{ $root->root }}}" checked="checked"/> <span class="hebrew">{{{ $root->root }}}</span> ({{{ $root->kind->name }}})</label>
+				</div>
 			@endif
 		@endforeach
-		</select>
 	</div>
 
 	<div class="form-group">
