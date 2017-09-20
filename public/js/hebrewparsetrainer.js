@@ -152,7 +152,7 @@ $(document).ready(function(){
 
 		var stems = $('input[name="stem"]:checked').map(function(){return this.value;});
 		var tenses = $('input[name="tense"]:checked').map(function(){return this.value;});
-		var roots = $('input[name="root"]:checked').map(function(){return this.value;});
+		var roots = $('select[name="root"]').val();
 
 		$.ajax('verb/random/', {
 			method: 'POST',
@@ -293,7 +293,11 @@ $(document).ready(function(){
 
 		for (var i in correct_answers) {
 			var correct_answer = correct_answers[i];
-			if (JSON.stringify(answer) == JSON.stringify(correct_answer)) {
+			var root = correct_answer['root'];
+			delete correct_answer['root'];
+			var json = JSON.stringify(correct_answer);
+			correct_answer['root'] = root;
+			if (JSON.stringify(answer) == json) {
 				$('#trainer-input-'+input_count)
 					.css({backgroundColor: '#dff0d8'})
 					.parent().addClass('has-success');
