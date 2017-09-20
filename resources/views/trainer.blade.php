@@ -8,6 +8,8 @@ use HebrewParseTrainer\Tense;
 
 @section('sidebar')
 <form id="hebrewparsetrainer-settings">
+	<input type="hidden" id="csrf" value="{{ csrf_token() }}"/>
+
 	<div class="form-group">
 		<h3>Stems</h3>
 		@foreach (Stem::all() as $stem)

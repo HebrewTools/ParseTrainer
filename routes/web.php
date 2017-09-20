@@ -35,7 +35,7 @@ Route::group(
 			return \HebrewParseTrainer\Tense::all();
 		});
 
-		Route::get('/verb/random',
+		Route::post('/verb/random',
 			'\App\Http\Controllers\VerbController@random');
 
 		Route::get('/contribute', function () {

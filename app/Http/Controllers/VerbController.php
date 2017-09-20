@@ -33,14 +33,14 @@ use Illuminate\Support\Facades\Validator;
 class VerbController extends Controller {
 
 	public function random() {
-		$verbs = Verb::where('active', 1)->get();
+		$verbs = Verb::where('active', 1);
 		foreach (Input::get() as $col => $val) {
-			$val = explode(',', $val);
-			$verbs = $verbs->filter(function(Verb $item) use ($col, $val) {
-				return in_array($item->getAttribute($col), $val);
-			});
+			if ($col == '_token')
+				continue;
+			$vals = explode(',', $val);
+			$verbs = $verbs->whereIn($col, $vals);
 		}
-		$verb = $verbs->random();
+		$verb = $verbs->get()->random();
 
 		$log = new RandomLog();
 		$log->request = json_encode(Input::get());

@@ -155,7 +155,9 @@ $(document).ready(function(){
 		var roots = $('select[name="root"]').val();
 
 		$.ajax('verb/random/', {
+			method: 'POST',
 			data: {
+				_token: $('#csrf').val(),
 				stem: $.makeArray(stems).join(),
 				tense: $.makeArray(tenses).join(),
 				root: $.makeArray(roots).join()
