@@ -172,6 +172,7 @@ $(document).ready(function(){
 				correct_answers = [];
 				for (var i in data.answers) {
 					var answer = {
+						root: data.answers[i].root,
 						stem: data.answers[i].stem,
 						tense: data.answers[i].tense,
 						person: data.answers[i].person,
@@ -252,17 +253,22 @@ $(document).ready(function(){
 			's': 'singular',
 			'p': 'plural'
 		};
+
+		var prs = parsing.stem + ' ' + parsing.tense +
+					(parsing.person ? (' ' + parsing.person) : '');
+
 		if (extended === true) {
-			return parsing.stem + ' ' + parsing.tense +
-					(parsing.person ? (' ' + parsing.person) : '') +
-					(parsing.gender ? (' ' + genders[parsing.gender]) : '') +
+			prs += (parsing.gender ? (' ' + genders[parsing.gender]) : '') +
 					(parsing.number ? (' ' + numbers[parsing.number]) : '');
 		} else {
-			return parsing.stem + ' ' + parsing.tense +
-					(parsing.person ? (' ' + parsing.person) : '') +
-					(parsing.gender ? (' ' + parsing.gender) : '') +
+			prs += (parsing.gender ? (' ' + parsing.gender) : '') +
 					(parsing.number ? (' ' + parsing.number) : '');
 		}
+
+		if ('root' in parsing)
+			prs += ' ' + parsing.root;
+
+		return prs;
 	}
 
 	function processInput() {
