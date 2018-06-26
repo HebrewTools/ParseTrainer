@@ -26,10 +26,17 @@ class RandomLog extends Model {
 	public $timestamps = false;
 	protected $fillable = ['request', 'response'];
 		
-		public static function boot() {
+	public static function boot() {
 		static::creating(function ($model) {
 			$model->created_at = $model->freshTimestamp();
 		});
+	}
+
+	public function setRequestAttribute($value) {
+		$value = json_decode($value, true);
+		unset($value['_token']);
+		$value = json_encode($value);
+		$this->attributes['request'] = $value;
 	}
 
 }
