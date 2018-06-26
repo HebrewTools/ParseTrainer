@@ -7,6 +7,7 @@ use HebrewParseTrainer\RootKind;
 	</div>
 	<div class="panel-body">
 		<form id="add-root">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="alerts"></div>
 			<div class="form-group">
 				<label for="add-root-root">Root</label>

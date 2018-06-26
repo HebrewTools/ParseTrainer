@@ -10,6 +10,7 @@ use HebrewParseTrainer\Verb;
 	</div>
 	<div class="panel-body">
 		<form class="form-horizontal" id="suggest">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<div class="alerts"></div>
 			<div class="form-group">
 				<label for="suggest-verb" class="col-sm-2 control-label">Verb</label>
