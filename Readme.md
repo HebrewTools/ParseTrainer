@@ -99,10 +99,10 @@ In a subdirectory, we need to enforce trailing slashes and do some special thing
 
 ## License
 
-GPL v3.0, see the LICENSE file.
+Copyright 2015&ndash;present Camil Staps.
+Licensed under GPL v3.0, see the LICENSE file.
 
 This project uses the [EzraSIL][ezrasil] font which is licensed under the Open Font License.
 
 [demo]: https://parse.hebrewtools.org/
 [ezrasil]: http://scripts.sil.org/cms/scripts/page.php?item_id=EzraSIL_Home
-
