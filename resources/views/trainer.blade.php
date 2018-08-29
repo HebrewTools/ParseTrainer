@@ -78,14 +78,11 @@ use HebrewParseTrainer\Tense;
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Contribute!</h3>
+				<h3 class="panel-title">About</h3>
 			</div>
 			<div class="panel-body">
-				<p>If this app is useful to you, please consider <a href="{{ url('/contribute') }}">contributing</a> by adding more verbs to the database!</p>
-				@if(!Auth::check())
-					<a class="btn btn-success" href="{{ url('/register') }}">Sign up</a>
-					<a class="btn btn-primary" href="{{ url('/login') }}">Login</a>
-				@endif
+				<p>&copy; 2015-18 <a href="https://camilstaps.nl">Camil Staps</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL 3.0</a>. Source is on <a href="https://github.com/HebrewTools/ParseTrainer">GitHub</a>.</p>
+				<p>Please report any mistakes to <a href="mailto:info@camilstaps.nl">info@camilstaps.nl</a>.</p>
 			</div>
 		</div>
 	</div>

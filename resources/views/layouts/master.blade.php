@@ -23,10 +23,10 @@ use Illuminate\Support\Facades\Request;
 $activePage = isset($activePage) ? $activePage : '';
 $menu = [
 	'Train' => ['/', ''],
-	'Contribute' => ['contribute', 'contribute'],
 ];
 
 if (Auth::check()) {
+	$menu['Contribute'] = ['contribute', 'contribute'];
 	$menu['Statistics'] = ['stats', 'stats'];
 }
 ?>
