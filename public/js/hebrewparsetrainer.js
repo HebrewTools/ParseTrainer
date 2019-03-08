@@ -276,7 +276,8 @@ $(document).ready(function(){
 		var answer = parseAnswer(input.val());
 		if (answer === false) {
 			input.parent().addClass('has-error');
-			$('#trainer-parsed-' + input_count).val('Parsing error');
+			$('#trainer-parsed-' + input_count).val(
+				input.val().length < 8 ? 'Input full parsing...' : 'Parsing error');
 		} else {
 			input.parent().removeClass('has-error');
 			$('#trainer-parsed-' + input_count).val(parsingToString(answer, true));
