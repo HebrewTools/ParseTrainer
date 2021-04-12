@@ -20,15 +20,14 @@ namespace App\Http\Controllers;
 
 use HebrewParseTrainer\Verb;
 use HebrewParseTrainer\RandomLog;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 
 class RandomVerbController extends Controller {
 
 	public function show()
 	{
 		$verbs = Verb::all();
-		foreach (Input::get() as $col => $val) {
+		foreach (Request::input() as $col => $val) {
 			$val = explode(',', $val);
 			$verbs = $verbs->filter(function(Verb $item) use ($col, $val) {
 				return in_array($item->getAttribute($col), $val);
@@ -37,7 +36,7 @@ class RandomVerbController extends Controller {
 		$verb = $verbs->random();
 
 		$log = new RandomLog();
-		$log->request = json_encode(Input::get());
+		$log->request = json_encode(Request::input());
 		$log->response = $verb->id;
 		$log->ip = $_SERVER['REMOTE_ADDR'];
 		$log->save();

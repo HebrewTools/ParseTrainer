@@ -27,14 +27,14 @@ use HebrewParseTrainer\RandomLog;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request as RequestFacade;
 use Illuminate\Support\Facades\Validator;
 
 class VerbController extends Controller {
 
 	public function random() {
 		$verbs = Verb::where('active', 1);
-		foreach (Input::get() as $col => $val) {
+		foreach (RequestFacade::input() as $col => $val) {
 			if ($col == '_token')
 				continue;
 			$vals = explode(',', $val);
@@ -43,7 +43,7 @@ class VerbController extends Controller {
 		$verb = $verbs->get()->random();
 
 		$log = new RandomLog();
-		$log->request = json_encode(Input::get());
+		$log->request = json_encode(RequestFacade::input());
 		$log->response = $verb->id;
 		$log->ip = $_SERVER['REMOTE_ADDR'];
 		$log->save();
