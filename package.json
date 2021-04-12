@@ -10,7 +10,7 @@
         "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "bootstrap": "^4.6.0",
+        "bootstrap": "^3.3.7",
         "jquery": "^3.6.0",
         "laravel-mix": "^1.0",
         "popper.js": "^1.16.1"
