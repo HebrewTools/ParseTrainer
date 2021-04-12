@@ -5,16 +5,17 @@
     "license": "GPLv3",
     "type": "project",
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.3.0",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "^7.0",
-        "laravel/ui": "^2.0"
+        "laravel/framework": "^8.0",
+        "laravel/ui": "^3.0",
+        "doctrine/dbal": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "classmap": [
