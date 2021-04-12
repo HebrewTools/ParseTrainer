@@ -29,8 +29,8 @@ $(document).ready(function(){
 		return this;
 	};
 
-	var audio_positive = new Audio('public/audio/positive.wav');
-	var audio_negative = new Audio('public/audio/negative.wav');
+	var audio_positive = new Audio('audio/positive.wav');
+	var audio_negative = new Audio('audio/negative.wav');
 
 	var correct_answers;
 	var input_count = 0;

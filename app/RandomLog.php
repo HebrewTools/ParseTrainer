@@ -27,6 +27,8 @@ class RandomLog extends Model {
 	protected $fillable = ['request', 'response'];
 		
 	public static function boot() {
+		parent::boot();
+
 		static::creating(function ($model) {
 			$model->created_at = $model->freshTimestamp();
 		});
