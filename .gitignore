@@ -19,8 +19,11 @@ composer.lock
 /app/config/packages
 /public/packages
 /public/storage
+/public/js
+/public/css
+/public/audio
+/public/mix-manifest.json
 
 /node_modules
 
 .env
-

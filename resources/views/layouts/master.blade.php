@@ -37,8 +37,8 @@ if (Auth::check()) {
 
 		<title>ParseTrainer</title>
 
-		<link rel="stylesheet" href="{{ asset('vendor/twbs/bootstrap/dist/css/bootstrap.min.css') }}"/>
-		<link rel="stylesheet" href="{{ asset('public/css/hebrewparsetrainer.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('css/hebrewparsetrainer.css') }}"/>
 
 		<script type="text/javascript">
 			var app_url = '{{ env('APP_URL') }}';
@@ -64,12 +64,9 @@ if (Auth::check()) {
 			@yield('master-content')
 		</div>
 
-		<script src="{{ asset('vendor/components/jquery/jquery.min.js') }}"></script>
-		<script src="{{ asset('vendor/twbs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-		<script src="{{ asset('public/js/alerts.js') }}"></script>
-		<script src="{{ asset('public/js/hebrewparsetrainer.js') }}"></script>
+		<script src="{{ asset('js/app.js') }}"></script>
 		@if(Auth::check())
-			<script src="{{ asset('public/js/moderators.js') }}"></script>
+			<script src="{{ asset('js/moderators.js') }}"></script>
 
 			<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display:none;">
 				{{ csrf_field() }}

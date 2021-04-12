@@ -11,6 +11,8 @@ A simple app to practice Hebrew verbs.
     $ git clone https://github.com/HebrewTools/ParseTrainer
     $ cd ParseTrainer
     $ composer install
+    $ npm ci
+    $ npm run dev
 
 ## Configuration
 
