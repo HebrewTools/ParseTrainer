@@ -72,5 +72,7 @@ if (Auth::check()) {
 				{{ csrf_field() }}
 			</form>
 		@endif
+
+		@yield('master-scripts')
 	</body>
 </html>

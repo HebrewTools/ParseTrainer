@@ -59,11 +59,10 @@ $stats['unique-ips'] = "[" . implode(",", $stats['unique-ips']) . "]";
 		</div>
 	</div>
 </div>
+@endsection
 
-<script src="{{ url("/vendor/components/jquery/jquery.min.js") }}"></script>
-<script src="{{ url("/vendor/twbs/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+@section('master-scripts')
 <script src="//code.highcharts.com/stock/highstock.js"></script>
-<script src="{{ url("/public/js/hebrewparsetrainer.js") }}"></script>
 
 <script type="text/javascript">
 	$('#random-requests').highcharts('StockChart', {
