@@ -43,6 +43,12 @@ Return to the root directory and run:
 
     $ php artisan migrate --seed
 
+You can now test the application with artisan's built-in web server:
+
+    $ php artisan serve
+
+Alternatively, read on for the nginx instructions.
+
 ### Nginx
 
 You need to enable PHP and redirect everything to `server.php`. Configuration on the root of a site is straightforward:
