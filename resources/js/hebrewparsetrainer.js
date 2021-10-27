@@ -57,8 +57,8 @@ $(document).ready(function(){
 				       , 'ius ':   'Ius.'
 				       , 'infcs':  'Inf. cs.'
 				       , 'infabs': 'Inf. abs.'
-				       , 'pta ':   'Part. act.'
-				       , 'ptp ':   'Part. pass.'
+				       , 'ptc ':   'Ptc.'
+				       , 'ptcp ':   'Ptc. pass. (qal)'
 				}; break;
 			case 2:
 				buts = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
@@ -209,7 +209,7 @@ $(document).ready(function(){
 		var genders = ['m', 'f', 'c', null];
 		var numbers = ['s', 'p', null];
 
-		var re = /^\s*(\w+)\s+(\w+)(?:\s+(?:([123])\s*)?([mf])\s*([sp])\s*)?$/;
+		var re = /^\s*(\w+)\s+(\w+\b)(?:\s+(?:([123])\s*)?([mf])\s*([sp])\s*)?$/;
 		var match = parsing.match(re);
 		if (match == null)
 			return false;
@@ -229,9 +229,9 @@ $(document).ready(function(){
 		if (tense.indexOf('infinitive') != 0) {
 			if (gender == null || number == null)
 				return false;
-			if (tense.indexOf('participle') == 0 && person != null)
+			if (tense.indexOf('participle') != -1 && person != null)
 				return false;
-			if (tense.indexOf('participle') != 0 && person == null)
+			if (tense.indexOf('participle') == -1 && person == null)
 				return false;
 		}
 
