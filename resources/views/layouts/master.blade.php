@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 HebrewParseTrainer - practice Hebrew verbs
-Copyright (C) 2015  Camil Staps <info@camilstaps.nl>
+Copyright (C) 2015-2021  Camil Staps <info@camilstaps.nl>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
