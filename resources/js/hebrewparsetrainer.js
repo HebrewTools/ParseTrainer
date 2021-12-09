@@ -38,10 +38,10 @@ $(document).ready(function(){
 
 	function stepFancyInput(step) {
 		$('#trainer-input-fancy').html('');
-		var buts = {};
+		var btns = {};
 		switch (step) {
 			case 0:
-				buts = { 'Q ':   'Qal'
+				btns = { 'Q ':   'Qal'
 				       , 'Hip ': 'Hiphil'
 				       , 'Ho ':  'Hophal'
 				       , 'Ni ':  'Niphal'
@@ -50,7 +50,7 @@ $(document).ready(function(){
 				       , 'Hit ': 'Hitpael'
 				}; break;
 			case 1:
-				buts = { 'pf ':	'Pf.'
+				btns = { 'pf ':	'Pf.'
 				       , 'ipf ':   'Ipf.'
 				       , 'coh ':   'Coh.'
 				       , 'imp ':   'Imp.'
@@ -61,19 +61,22 @@ $(document).ready(function(){
 				       , 'ptcp ':   'Ptc. pass. (qal)'
 				}; break;
 			case 2:
-				buts = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
+				btns = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
 			case 3:
-				buts = { 'm': 'Masculine', 'f': 'Feminine', '': 'N/A' }; break;
+				btns = { 'm': 'Masculine', 'f': 'Feminine', '': 'N/A' }; break;
 			case 4:
-				buts = { 's': 'Singular', 'p': 'Plural', '': 'N/A' }; break;
+				btns = { 's': 'Singular', 'p': 'Plural', '': 'N/A' }; break;
 		}
 
-		for (k in buts) {
-			var but = $('<button></button>');
-			but.addClass('btn btn-default').attr('role', 'button');
-			but.text(buts[k]).val(k);
-			but.click(function(){
-				var ip = $('#trainer-input-'+input_count);
+		let btn_group = $('<div></div>');
+		btn_group.addClass('btn-group').attr('role', 'group');
+
+		for (k in btns) {
+			let btn = $('<button></button>');
+			btn.addClass('btn btn-default').attr('role', 'button');
+			btn.text(btns[k]).val(k);
+			btn.click(function(){
+				let ip = $('#trainer-input-'+input_count);
 				ip.val(ip.val() + $(this).val()).focus();
 				if (step < 4) {
 					stepFancyInput(step + 1);
@@ -93,8 +96,21 @@ $(document).ready(function(){
 				}
 			});
 
-			$('#trainer-input-fancy').append(but).append('&nbsp;');
+			$(btn_group).append(btn);
+			if (k < btns.length-1)
+				$(btn_group).append('&nbsp;');
 		}
+
+		let reset_btn = $('<button></button>');
+		reset_btn.addClass('btn btn-default').attr('role', 'button');
+		reset_btn.text('Reset');
+		reset_btn.click(function(){
+			let ip = $('#trainer-input-'+input_count);
+			ip.val('').focus();
+			stepFancyInput(0);
+		});
+
+		$('#trainer-input-fancy').append(btn_group).append('&nbsp;').append(reset_btn);
 	}
 
 	function addInput() {
