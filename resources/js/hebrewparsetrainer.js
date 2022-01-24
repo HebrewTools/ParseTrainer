@@ -260,7 +260,7 @@ $(document).ready(function(){
 		};
 	}
 
-	function parsingToString(parsing, extended) {
+	function parsingToString(parsing, extended, html) {
 		var genders = {
 			'm': 'masculine',
 			'f': 'feminine'
@@ -281,8 +281,12 @@ $(document).ready(function(){
 					(parsing.number ? (' ' + parsing.number) : '');
 		}
 
-		if ('root' in parsing)
-			prs += ' ' + parsing.root;
+		if ('root' in parsing) {
+			if (html)
+				prs += ' <span class="hebrew">' + parsing.root + '</span>';
+			else
+				prs += ' ' + parsing.root;
+		}
 
 		return prs;
 	}
@@ -296,7 +300,7 @@ $(document).ready(function(){
 				input.val().length < 8 ? 'Input full parsing...' : 'Parsing error');
 		} else {
 			input.parent().removeClass('has-error');
-			$('#trainer-parsed-' + input_count).val(parsingToString(answer, true));
+			$('#trainer-parsed-' + input_count).val(parsingToString(answer, true, false));
 		}
 		return answer;
 	}
@@ -337,7 +341,7 @@ $(document).ready(function(){
 			.css({backgroundColor: '#f2dede'})
 			.parent().addClass('has-error');
 		if ($('#settings-audio').prop('checked')) audio_negative.play();
-		$('#trainer-answer').text(' - ' + correct_answers.map(parsingToString).join(', '));
+		$('#trainer-answer').html(' - ' + correct_answers.map(a => parsingToString(a, false, true)).join(', '));
 
 		return true;
 	}
