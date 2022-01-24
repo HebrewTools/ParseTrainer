@@ -56,7 +56,7 @@ use HebrewParseTrainer\Tense;
 	</div>
 	<div id="trainer-input-fancy"></div>
 	<div class="text-muted">
-		<div> <!--  id="trainer-input-help" -->
+		<div id="trainer-input-help">
 			<p>Parse the verb and enter the answer as described below or using the buttons. Press return. If your answer was correct and there are multiple possible parsings, an extra input field will appear. After the first incorrect answer or after entering all possible answers, you can continue to the next verb by pressing return once more.</p>
 			<p>
 				<strong>Stems</strong>: either use the full name or a significant beginning (i.e. <code>Q</code> for Qal and <code>N</code>, <code>Pi</code>, <code>Pu</code>, <code>Hit</code>, <code>Hip</code>, and <code>Hop</code> for the derived stems).<br/>
