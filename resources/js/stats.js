@@ -1,5 +1,14 @@
 require('highcharts/highstock');
 
+(() => {
+let groupPixelWidth = 100;
+let units = [
+	['day',   [1]],
+	['week',  [1]],
+	['month', [1, 3]],
+	['year',  [1]]
+];
+
 window.makeStatsChart = function (requests, visitors) {
 	$('#random-requests').highcharts('StockChart', {
 		chart: {
@@ -32,21 +41,17 @@ window.makeStatsChart = function (requests, visitors) {
 		plotOptions: {
 			column: {
 				dataGrouping: {
-					groupPixelWidth: 80,
-					units: [
-						['day',   [1]],
-						['week',  [1]],
-						['month', [1]],
-						['month', [3]],
-						['year',  [1]]
-					]
+					groupPixelWidth: groupPixelWidth,
+					units: units
 				},
 				pointPadding: 0.02,
 				groupPadding: 0.02
 			},
 			series: {
 				dataGrouping: {
-					approximation: 'sum'
+					groupPixelWidth: groupPixelWidth,
+					approximation: 'sum',
+					units: units
 				}
 			}
 		},
@@ -65,4 +70,5 @@ window.makeStatsChart = function (requests, visitors) {
 			}
 		]
 	});
-}
+};
+})();
