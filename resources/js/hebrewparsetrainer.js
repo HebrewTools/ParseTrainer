@@ -63,7 +63,7 @@ $(document).ready(function(){
 			case 2:
 				btns = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
 			case 3:
-				btns = { 'm': 'Masculine', 'f': 'Feminine', '': 'N/A' }; break;
+				btns = { 'm': 'Masculine', 'f': 'Feminine', 'c': 'Common', '': 'N/A' }; break;
 			case 4:
 				btns = { 's': 'Singular', 'p': 'Plural', '': 'N/A' }; break;
 		}
@@ -225,7 +225,7 @@ $(document).ready(function(){
 		var genders = ['m', 'f', 'c', null];
 		var numbers = ['s', 'p', null];
 
-		var re = /^\s*(\w+)\s+(\w+\b)(?:\s+(?:([123])\s*)?([mf])\s*([sp])\s*)?$/;
+		var re = /^\s*(\w+)\s+(\w+\b)(?:\s+(?:([123])\s*)?([mfc])\s*([sp])\s*)?$/;
 		var match = parsing.match(re);
 		if (match == null)
 			return false;
@@ -263,7 +263,8 @@ $(document).ready(function(){
 	function parsingToString(parsing, extended, html) {
 		var genders = {
 			'm': 'masculine',
-			'f': 'feminine'
+			'f': 'feminine',
+			'c': 'common'
 		};
 		var numbers = {
 			's': 'singular',
@@ -312,38 +313,70 @@ $(document).ready(function(){
 			return false;
 		}
 
-		for (var i in correct_answers) {
-			var correct_answer = correct_answers[i];
-			var root = correct_answer['root'];
-			delete correct_answer['root'];
-			var json = JSON.stringify(correct_answer);
-			correct_answer['root'] = root;
-			if (JSON.stringify(answer) == json) {
-				$('#trainer-input-'+input_count)
-					.css({backgroundColor: '#dff0d8'})
-					.parent().addClass('has-success');
-				if ($('#settings-audio').prop('checked')) audio_positive.play();
+		var answers = [answer];
+		if (answer['gender'] == 'c') {
+			answers.push(structuredClone(answer));
+			answers[0]['gender'] = 'm';
+			answers[1]['gender'] = 'f';
+		}
 
-				correct_answers.splice(i,1);
-				if (correct_answers.length > 0) {
-					addInput();
-					return false;
-				} else {
-					if (reload === true) {
-						window.setTimeout(reloadVerb, 600);
-					}
-					return true;
+		for (var i in answers) {
+			let answer = answers[i];
+			let answer_json = JSON.stringify(answer);
+			let answer_found = false;
+
+			for (var j in correct_answers) {
+				var correct_answer = structuredClone(correct_answers[j]);
+				delete correct_answer['root'];
+
+				if (answer_json == JSON.stringify(correct_answer)) {
+					answer_found = true;
+					break;
+				}
+			}
+
+			if (!answer_found) {
+				$('#trainer-input-'+input_count)
+					.css({backgroundColor: '#f2dede'})
+					.parent().addClass('has-error');
+				if ($('#settings-audio').prop('checked')) audio_negative.play();
+				$('#trainer-answer').html(' - ' + correct_answers.map(a => parsingToString(a, false, true)).join(', '));
+
+				return true;
+			}
+		}
+
+		/* Only remove from correct_answers if the above did not yield an error,
+		 * since correct_answers is used to give feedback to the user. */
+		for (var i in answers) {
+			let answer = answers[i];
+			let answer_json = JSON.stringify(answer);
+
+			for (var j in correct_answers) {
+				var correct_answer = structuredClone(correct_answers[j]);
+				delete correct_answer['root'];
+
+				if (answer_json == JSON.stringify(correct_answer)) {
+					correct_answers.splice(j,1);
+					break;
 				}
 			}
 		}
 
 		$('#trainer-input-'+input_count)
-			.css({backgroundColor: '#f2dede'})
-			.parent().addClass('has-error');
-		if ($('#settings-audio').prop('checked')) audio_negative.play();
-		$('#trainer-answer').html(' - ' + correct_answers.map(a => parsingToString(a, false, true)).join(', '));
+			.css({backgroundColor: '#dff0d8'})
+			.parent().addClass('has-success');
+		if ($('#settings-audio').prop('checked')) audio_positive.play();
 
-		return true;
+		if (correct_answers.length > 0) {
+			addInput();
+			return false;
+		} else {
+			if (reload === true) {
+				window.setTimeout(reloadVerb, 600);
+			}
+			return true;
+		}
 	}
 
 	function init() {
