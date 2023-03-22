@@ -62,7 +62,7 @@ use HebrewParseTrainer\Tense;
 				<strong>Stems</strong>: either use the full name or a significant beginning (i.e. <code>Q</code> for Qal and <code>N</code>, <code>Pi</code>, <code>Pu</code>, <code>Hit</code>, <code>Hip</code>, and <code>Hop</code> for the derived stems).<br/>
 				<strong>Tenses</strong>: use the abbreviations <code>pf</code>, <code>ipf</code>, <code>coh</code>, <code>imp</code>, <code>jus</code>, <code>infcs</code>, <code>infabs</code>, <code>ptc</code> and <code>ptcp</code>.<br/>
 				<strong>Person</strong>: <code>1</code>, <code>2</code>, <code>3</code> or none (infinitives and participles).<br/>
-				<strong>Gender</strong>: <code>m</code>, <code>f</code> or none (infinitives).<br/>
+				<strong>Gender</strong>: <code>m</code>, <code>f</code>, <code>c</code> or none (infinitives).<br/>
 				<strong>Number</strong>: <code>s</code>, <code>p</code> or none (infinitives).
 			</p>
 			<p>Examples: <code>Q pf 3ms</code>, <code>ni ptc fp</code>, <code>pi infabs</code>.</p>
