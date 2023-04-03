@@ -68,7 +68,6 @@ use HebrewParseTrainer\Tense;
 			<p>Examples: <code>Q pf 3ms</code>, <code>ni ptc fp</code>, <code>pi infabs</code>.</p>
 			<h5>Notes:</h5>
 			<ul>
-				<li>There is no 'common' gender. Instead, enter the masculine and feminine forms separately. The <code>N/A</code> option is for infinitives.</li>
 				<li>The <code>ptcp</code> option is only for the passive participle of the qal. All other participles should be entered with <code>ptc</code> (including participles of the passive stems).</li>
 			</ul>
 		</div>
