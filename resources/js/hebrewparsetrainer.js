@@ -54,7 +54,7 @@ $(document).ready(function(){
 				       , 'ipf ':   'Ipf.'
 				       , 'coh ':   'Coh.'
 				       , 'imp ':   'Imp.'
-				       , 'ius ':   'Ius.'
+				       , 'jus ':   'Jus.'
 				       , 'infcs':  'Inf. cs.'
 				       , 'infabs': 'Inf. abs.'
 				       , 'ptc ':   'Ptc.'
