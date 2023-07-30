@@ -36,11 +36,6 @@ class Verb extends Model {
 		return $this->hasMany('HebrewParseTrainer\VerbAction');
 	}
 
-	public function otherParsings() {
-		return self::where('verb', $this->verb)->get()
-			->filter(function($v){return $v->verb === $this->verb;});
-	}
-
 	public function voteCount() {
 		$votes = $this->actions()->where('kind', VerbAction::KIND_VOTE)->get();
 		$total = 0;

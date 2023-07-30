@@ -1,7 +1,7 @@
 <?php
 /**
  * HebrewParseTrainer - practice Hebrew verbs
- * Copyright (C) 2015-2021  Camil Staps <info@camilstaps.nl>
+ * Copyright (C) 2015-2023  Camil Staps <info@camilstaps.nl>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,18 @@ class VerbController extends Controller {
 			$vals = explode(',', $val);
 			$verbs = $verbs->whereIn($col, $vals);
 		}
-		$verb = $verbs->get()->random();
+		$verbs = $verbs->get();
+
+		$verb = $verbs->random();
+
+		/* Possible answers are taken from the filtered verbs. Previously answers
+		 * were *all* entries in the database with the same form. This was
+		 * problematic in cases like נִקְטֹל. If a user has filtered to only train qal
+		 * forms, they should not be discouraged by the system saying this is also
+		 * a niphal infinitive absolute. */
+		$answers = $verbs->filter(function ($v) use ($verb) {
+			return $v->verb === $verb->verb;
+		});
 
 		$log = new RandomLog();
 		$log->request = json_encode(RequestFacade::input());
@@ -48,7 +59,7 @@ class VerbController extends Controller {
 		$log->ip = $_SERVER['REMOTE_ADDR'];
 		$log->save();
 
-		$obj = ['verb' => $verb, 'answers' => $verb->otherParsings()];
+		$obj = ['verb' => $verb, 'answers' => $answers];
 		return response()->json($obj);
 	}
 
