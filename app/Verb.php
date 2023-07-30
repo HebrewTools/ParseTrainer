@@ -28,6 +28,10 @@ class Verb extends Model {
 
 	const ACCEPTED_VOTE_COUNT = 5;
 
+	public function setVerbAttribute($value) {
+		$this->attributes['verb'] = Normalizer::normalize($value);
+	}
+
 	public function actions() {
 		return $this->hasMany('HebrewParseTrainer\VerbAction');
 	}
@@ -67,5 +71,4 @@ class Verb extends Model {
 
 		return null;
 	}
-
 }
