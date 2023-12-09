@@ -16,38 +16,44 @@ A simple app to practice Hebrew verbs.
 
 ## Configuration
 
-First, create a MySQL database and a user that can connect to it. In this example, we'll use `hebrew_db`, `hebrew_user` and `hebrew_pass`.
+Copy the `.env.example` file in the root directory and call it `.env` and customise it.
 
-Create a `.env` file in the root directory with at least the following options:
+Install `npm` packages:
 
-    APP_ENV=production
-    APP_DEBUG=false
-    APP_KEY= # a 32-char random string
-    APP_URL=https://demo.camilstaps.nl/HebrewParseTrainer/ # e.g., use your own URL here
+    $ npm install
 
-    APP_LOCALE=en
-    APP_FALLBACK_LOCALE=en
+Run the development server:
 
-    DB_CONNECTION=mysql
-    DB_HOST=localhost
-    DB_PORT=3306
-    DB_DATABASE=hebrew_db
-    DB_USERNAME=hebrew_user
-    DB_PASSWORD=hebrew_pass
+    $ npm run watch
 
-    CACHE_DRIVER=memchached
-    SESSION_DRIVER=memcached
-    QUEUE_DRIVER=database
+### Docker Compose
 
-Return to the root directory and run:
+To initialise the database:
 
+    $ docker compose run --rm app bash -c 'composer install && php artisan migrate --seed'
+
+To generate an application key:
+
+    $ docker compose run --rm app php artisan key:generate
+
+Then to run the server:
+
+    $ docker compose up -d
+
+### Local
+
+First, create a MySQL database and a user that can connect to it.
+
+Then run:
+
+    $ php artisan key:generate
     $ php artisan migrate --seed
 
 You can now test the application with artisan's built-in web server:
 
     $ php artisan serve
 
-Alternatively, read on for the nginx instructions.
+Alternatively, you can configure PHP through Nginx.
 
 ### Nginx
 
@@ -74,7 +80,8 @@ You need to enable PHP and redirect everything to `server.php`. Configuration on
         }
     }
 
-In a subdirectory, we need to enforce trailing slashes and do some special things. This configures nginx to handle the trainer from `/ParseTrainer/`:
+If serving from a different path, we need to enforce trailing slashes and do some special things.
+This configures Nginx to handle the trainer from `/ParseTrainer/`:
 
     server {
         listen [::]:80;
