@@ -402,10 +402,13 @@ $(document).ready(function(){
 	}
 
 	function saveSettingsToStorage() {
-		var stems = $.makeArray($('input[name="stem"]:checked').map(function(){return this.value;})).join();
-		var tenses = $.makeArray($('input[name="tense"]:checked').map(function(){return this.value;})).join();
-		var roots = $.makeArray($('select[name="root"]').val()).join();
-		var generalOptions = $.makeArray($('input[name="general"]:checked').map(function(){return this.value;})).join();
+		const stems = $.makeArray($('input[name="stem"]:checked').map(function(){return this.value;})).join();
+		const tenses = $.makeArray($('input[name="tense"]:checked').map(function(){return this.value;})).join();
+		const generalOptions = $.makeArray($('input[name="general"]:checked').map(function(){return this.value;})).join();
+
+		const rootsArray = $.makeArray($('select[name="root"]').val());
+		const allPossibleRoots = $.makeArray($('select[name="root"] option').map(function(){return this.value;}));
+		const roots = allPossibleRoots.length !== rootsArray.length ? rootsArray.join() : '';
 
 		localStorage.setItem('settings-stems', stems);
 		localStorage.setItem('settings-tenses', tenses);
@@ -418,8 +421,6 @@ $(document).ready(function(){
 		const tenses = (localStorage.getItem('settings-tenses', tenses) || '').split(',').filter(Boolean);
 		const roots = (localStorage.getItem('settings-roots', roots) || '').split(',').filter(Boolean);
 		const generalOptions = (localStorage.getItem('settings-general', generalOptions) || '').split(',').filter(Boolean);
-
-		console.log(stems, tenses, roots, generalOptions);
 
 		if (stems.length) {
 			$('input[name="stem"]').prop('checked', false);
