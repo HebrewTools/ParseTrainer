@@ -339,7 +339,7 @@ $(document).ready(function(){
 				$('#trainer-input-'+input_count)
 					.css({backgroundColor: '#f2dede'})
 					.parent().addClass('has-error');
-				if ($('#settings-audio').prop('checked')) audio_negative.play();
+				if ($('input[name="general"][value="audio"]').prop('checked')) audio_negative.play();
 				$('#trainer-answer').html(' - ' + correct_answers.map(a => parsingToString(a, false, true)).join(', '));
 
 				return true;
@@ -366,7 +366,7 @@ $(document).ready(function(){
 		$('#trainer-input-'+input_count)
 			.css({backgroundColor: '#dff0d8'})
 			.parent().addClass('has-success');
-		if ($('#settings-audio').prop('checked')) audio_positive.play();
+		if ($('input[name="general"][value="audio"]').prop('checked')) audio_positive.play();
 
 		if (correct_answers.length > 0) {
 			addInput();
@@ -395,12 +395,67 @@ $(document).ready(function(){
 			}
 		});
 
+		restoreSettingsFromStorage();
+
 		if (typeof reload_on_load != 'undefined' && reload_on_load)
 			reloadVerb();
 	}
 
+	function saveSettingsToStorage() {
+		var stems = $.makeArray($('input[name="stem"]:checked').map(function(){return this.value;})).join();
+		var tenses = $.makeArray($('input[name="tense"]:checked').map(function(){return this.value;})).join();
+		var roots = $.makeArray($('select[name="root"]').val()).join();
+		var generalOptions = $.makeArray($('input[name="general"]:checked').map(function(){return this.value;})).join();
+
+		localStorage.setItem('settings-stems', stems);
+		localStorage.setItem('settings-tenses', tenses);
+		localStorage.setItem('settings-roots', roots);
+		localStorage.setItem('settings-general', generalOptions);
+	}
+
+	function restoreSettingsFromStorage() {
+		const stems = (localStorage.getItem('settings-stems', stems) || '').split(',').filter(Boolean);
+		const tenses = (localStorage.getItem('settings-tenses', tenses) || '').split(',').filter(Boolean);
+		const roots = (localStorage.getItem('settings-roots', roots) || '').split(',').filter(Boolean);
+		const generalOptions = (localStorage.getItem('settings-general', generalOptions) || '').split(',').filter(Boolean);
+
+		console.log(stems, tenses, roots, generalOptions);
+
+		if (stems.length) {
+			$('input[name="stem"]').prop('checked', false);
+			for (let i = 0; i < stems.length; ++i) {
+				$('input[name="stem"][value="' + stems[i] + '"]').prop('checked', true);
+			}
+		}
+
+		if (tenses.length) {
+			$('input[name="tense"]').prop('checked', false);
+			for (let i = 0; i < tenses.length; ++i) {
+				$('input[name="tense"][value="' + tenses[i] + '"]').prop('checked', true);
+			}
+		}
+
+		if (roots.length) {
+			$('select[name="root"]').prop('selected', false);
+			for (let i = 0; i < roots.length; ++i) {
+				$('select[name="root"][value="' + roots[i] + '"]').prop('selected', true);
+			}
+		}
+
+		if (generalOptions.length) {
+			$('input[name="general"]').prop('checked', false);
+			for (let i = 0; i < generalOptions.length; ++i) {
+				$('input[name="general"][value="' + generalOptions[i] + '"]').prop('checked', true);
+			}
+		}
+	}
+
 	$('#hebrewparsetrainer-settings .reload-verb').change(function(){
 		reloadVerb();
+	});
+
+	$('#hebrewparsetrainer-settings').change(function(){
+		saveSettingsToStorage();
 	});
 
 	var help_shown = false;
