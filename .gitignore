@@ -26,4 +26,7 @@ composer.lock
 
 /node_modules
 
+/.mysql-data/*
+!/.mysql-data/.gitkeep
+
 .env
