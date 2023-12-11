@@ -42,7 +42,7 @@ use HebrewParseTrainer\Tense;
 	<div class="form-group">
 		<h3>Settings</h3>
 		<div class="checkbox">
-			<label><input type="checkbox" id="settings-audio" checked="checked"/> Audio</label>
+			<label><input type="checkbox" name="general" value="audio" checked="checked"/> Audio</label>
 		</div>
 	</div>
 </form>
