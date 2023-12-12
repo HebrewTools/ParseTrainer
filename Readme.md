@@ -2,13 +2,13 @@
 
 A simple app to practice Hebrew verbs.
 
-## Demo
+## Live version
 
-[parse.hebrewtools.org][demo]
+[parse.hebrewtools.org][live]
 
 ## Installation
 
-    $ git clone https://github.com/HebrewTools/ParseTrainer
+    $ git clone https://github.com/HebrewTools/ParseTrainer.git
     $ cd ParseTrainer
     $ composer install
     $ npm ci
@@ -16,19 +16,20 @@ A simple app to practice Hebrew verbs.
 
 ## Configuration
 
-Copy the `.env.example` file in the root directory and call it `.env` and customise it.
+Copy the `.env.example` file in the root directory to `.env` and customize it.
 
 Install `npm` packages:
 
     $ npm install
 
-Run the development server:
+When developing, the following command can be used to automatically rebuild
+static resources (JS, CSS, etc.) when source files change:
 
     $ npm run watch
 
 ### Docker Compose
 
-To initialise the database:
+To initialize the database:
 
     $ docker compose run --rm app bash -c 'composer install && php artisan migrate --seed'
 
@@ -57,7 +58,8 @@ Alternatively, you can configure PHP through Nginx.
 
 ### Nginx
 
-You need to enable PHP and redirect everything to `server.php`. Configuration on the root of a site is straightforward:
+You need to enable PHP and redirect everything to `server.php`. Configuration
+on the root of a site is straightforward:
 
     server {
         listen [::]:80;
@@ -80,8 +82,9 @@ You need to enable PHP and redirect everything to `server.php`. Configuration on
         }
     }
 
-If serving from a different path, we need to enforce trailing slashes and do some special things.
-This configures Nginx to handle the trainer from `/ParseTrainer/`:
+If serving from a different path, we need to enforce trailing slashes and do
+some special things. This configures Nginx to serve the application from
+`/ParseTrainer/`:
 
     server {
         listen [::]:80;
@@ -117,7 +120,8 @@ This configures Nginx to handle the trainer from `/ParseTrainer/`:
 Copyright 2015&ndash;present Camil Staps.
 Licensed under GPL v3.0, see the LICENSE file.
 
-This project uses the [EzraSIL][ezrasil] font which is licensed under the Open Font License.
+This project uses the [EzraSIL][ezrasil] font which is licensed under the Open
+Font License.
 
-[demo]: https://parse.hebrewtools.org/
 [ezrasil]: http://scripts.sil.org/cms/scripts/page.php?item_id=EzraSIL_Home
+[live]: https://parse.hebrewtools.org/
