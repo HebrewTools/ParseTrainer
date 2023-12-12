@@ -1,5 +1,4 @@
 /vendor
-.env
 
 /bootstrap/compiled.php
 
@@ -8,6 +7,7 @@
 
 /app/tests/_log
 
+.composer
 composer.phar
 composer.lock
 
@@ -25,5 +25,8 @@ composer.lock
 /public/mix-manifest.json
 
 /node_modules
+
+/.mysql-data/*
+!/.mysql-data/.gitkeep
 
 .env

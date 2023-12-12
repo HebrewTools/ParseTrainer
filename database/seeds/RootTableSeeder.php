@@ -32,7 +32,7 @@ class RootTableSeeder extends Seeder {
 		if (is_null($kind_id))
 			die('Unknown root kind ' . $kind . "\n");
 
-		Root::create([
+		Root::firstOrCreate([
 			'root' => $root,
 			'root_kind_id' => $kind_id
 		]);
@@ -47,7 +47,7 @@ class RootTableSeeder extends Seeder {
 	{
 		$this->add('קטל', 'Strong');
 
-		RootTranslation::create(['root' => 'קטל', 'translation' => 'kill']);
+		RootTranslation::firstOrCreate(['root' => 'קטל', 'translation' => 'kill']);
 	}
 
 }

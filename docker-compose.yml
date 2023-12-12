@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      args:
+        user: parsetrainer
+        uid: 1000
+    image: parsetrainer
+    container_name: parsetrainer-app
+    command:
+      bash -c "php artisan serve --host 0.0.0.0 --port ${APP_PORT}"
+    environment:
+      DB_HOST: db
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - ./:/var/www
+    networks:
+      - parsetrainer
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.2
+    container_name: parsetrainer-db
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    networks:
+      - parsetrainer
+    volumes:
+      - ./.mysql-data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: "/usr/bin/mysql --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD --execute \"SHOW DATABASES;\""
+      interval: 10s
+      timeout: 30s
+      retries: 3
+      start_period: 30s
+      start_interval: 2s
+
+networks:
+  parsetrainer:
+    driver: bridge
