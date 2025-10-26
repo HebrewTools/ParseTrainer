@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 @font-face {
-	font-family: 'Ezra SIL';
-	src: url('fonts/EzraSIL.ttf');
+	font-family: 'Abyssinica SIL';
+	src: url('fonts/AbyssinicaSIL.ttf');
 }
 
 body {
@@ -63,15 +63,10 @@ body {
 	display: none;
 }
 
-.hebrew {
-	direction: rtl;
-	font-family: 'Ezra SIL', David;
+.geez {
+	font-family: 'Abyssinica SIL';
 }
 
-.ltr {
-	direction: ltr;
-}
-
-.hebrew-large {
+.geez-large {
 	font-size: 40px;
 }

@@ -6,5 +6,5 @@ mix
 	.js('resources/js/stats.js', 'public/js')
 	.copy('node_modules/bootstrap/dist/css/bootstrap.min.css', 'public/css')
 	.copy('resources/css/hebrewparsetrainer.css', 'public/css')
-	.copy('resources/css/fonts/EzraSIL.ttf', 'public/css/fonts')
+	.copy('resources/css/fonts/AbyssinicaSIL.ttf', 'public/css/fonts')
 	.copy('resources/audio', 'public/audio');

@@ -30,7 +30,7 @@ use HebrewParseTrainer\Tense;
 
 	<div class="form-group">
 		<h3>Roots</h3>
-		<select name="root" class="reload-verb form-control hebrew ltr" multiple="multiple">
+		<select name="root" class="reload-verb form-control geez" multiple="multiple">
 		@foreach (Root::orderBy('root_kind_id')->orderBy('root')->get() as $root)
 			@if ($root->verbs()->where('active', 1)->count() > 0)
 					<option value="{{{ $root->root }}}" selected="selected">{{{ $root->root }}} ({{{ $root->kind->name }}})</option>
@@ -52,7 +52,7 @@ use HebrewParseTrainer\Tense;
 <div id="trainer">
 	<div id="trainer-input-container">
 		<p class="bg-danger" id="trainer-404">There are no verbs matching the criteria in our database.</p>
-		<p class="lead"><span class="hebrew hebrew-large" id="trainer-verb"></span><span id="trainer-answer"></span></p>
+		<p class="lead"><span class="geez geez-large" id="trainer-verb"></span><span id="trainer-answer"></span></p>
 	</div>
 	<div id="trainer-input-fancy"></div>
 	<div class="text-muted">

@@ -41,29 +41,40 @@ $(document).ready(function(){
 		var btns = {};
 		switch (step) {
 			case 0:
-				btns = { 'Q ':   'Qal'
-				       , 'Hip ': 'Hiphil'
-				       , 'Ho ':  'Hophal'
-				       , 'Ni ':  'Niphal'
-				       , 'Pi ':  'Piel'
-				       , 'Pu ':  'Pual'
-				       , 'Hit ': 'Hitpael'
+				btns = { '01 ':    '01'
+				       , '02 ':    '02'
+				       , '03 ':    '03'
+				       , '04 ':    '04'
+				       , 'A1 ':    'A1'
+				       , 'A2 ':    'A2'
+				       , 'A3 ':    'A3'
+				       , 'T1 ':    'T1'
+				       , 'T2 ':    'T2'
+				       , 'T3 ':    'T3'
+				       , 'Ast1 ':  'Ast1'
+				       , 'Ast2 ':  'Ast2'
+				       , 'Ast3 ':  'Ast3'
+				       , '0q ':    '0q'
+				       , 'Aq ':    'Aq'
+				       , 'Tq ':    'Tq'
+				       , 'Tq3 ':   'Tq3'
+				       , 'Astq3 ': 'Astq3'
 				}; break;
 			case 1:
-				btns = { 'pf ':	'Pf.'
+				btns = { 'pf ':	   'Pf.'
 				       , 'ipf ':   'Ipf.'
-				       , 'coh ':   'Coh.'
 				       , 'imp ':   'Imp.'
-				       , 'jus ':   'Jus.'
+				       , 'subj ':  'Subj.'
 				       , 'infcs':  'Inf. cs.'
 				       , 'infabs': 'Inf. abs.'
-				       , 'ptc ':   'Ptc.'
-				       , 'ptcp ':   'Ptc. pass. (qal)'
+				       , 'infnom': 'Inf. nom.'
+				       , 'infacc': 'Inf. acc.'
+				       , 'ger ':   'Ger.'
 				}; break;
 			case 2:
 				btns = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
 			case 3:
-				btns = { 'm': 'Masculine', 'f': 'Feminine', 'c': 'Common', '': 'N/A' }; break;
+				btns = { 'm': 'Masculine', 'f': 'Feminine', '': 'N/A' }; break;
 			case 4:
 				btns = { 's': 'Singular', 'p': 'Plural', '': 'N/A' }; break;
 		}
@@ -222,10 +233,10 @@ $(document).ready(function(){
 
 	function parseAnswer(parsing) {
 		var persons = ['1', '2', '3', null];
-		var genders = ['m', 'f', 'c', null];
+		var genders = ['m', 'f', null];
 		var numbers = ['s', 'p', null];
 
-		var re = /^\s*(\w+)\s+(\w+\b)(?:\s+(?:([123])\s*)?([mfc])\s*([sp])\s*)?$/;
+		var re = /^\s*(\w+)\s+(\w+\b)(?:\s+(?:([123])\s*)?([mf])\s*([sp])\s*)?$/;
 		var match = parsing.match(re);
 		if (match == null)
 			return false;
@@ -242,14 +253,8 @@ $(document).ready(function(){
 
 		if (tense.indexOf('infinitive') == 0 && (person != null || gender != null || number != null))
 			return false;
-		if (tense.indexOf('infinitive') != 0) {
-			if (gender == null || number == null)
-				return false;
-			if (tense.indexOf('participle') != -1 && person != null)
-				return false;
-			if (tense.indexOf('participle') == -1 && person == null)
-				return false;
-		}
+		if (tense.indexOf('infinitive') != 0 && (person == null || gender == null || number == null))
+			return false;
 
 		return {
 			stem: stem,
@@ -264,7 +269,6 @@ $(document).ready(function(){
 		var genders = {
 			'm': 'masculine',
 			'f': 'feminine',
-			'c': 'common'
 		};
 		var numbers = {
 			's': 'singular',
@@ -284,7 +288,7 @@ $(document).ready(function(){
 
 		if ('root' in parsing) {
 			if (html)
-				prs += ' <span class="hebrew">' + parsing.root + '</span>';
+				prs += ' <span class="geez">' + parsing.root + '</span>';
 			else
 				prs += ' ' + parsing.root;
 		}
@@ -314,11 +318,6 @@ $(document).ready(function(){
 		}
 
 		var answers = [answer];
-		if (answer['gender'] == 'c') {
-			answers.push(structuredClone(answer));
-			answers[0]['gender'] = 'm';
-			answers[1]['gender'] = 'f';
-		}
 
 		for (var i in answers) {
 			let answer = answers[i];
