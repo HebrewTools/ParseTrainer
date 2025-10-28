@@ -74,7 +74,7 @@ $(document).ready(function(){
 			case 2:
 				btns = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
 			case 3:
-				btns = { 'm': 'Masculine', 'f': 'Feminine', '': 'N/A' }; break;
+				btns = { 'm': 'Masculine', 'f': 'Feminine', 'c': 'Common', '': 'N/A' }; break;
 			case 4:
 				btns = { 's': 'Singular', 'p': 'Plural', '': 'N/A' }; break;
 		}
@@ -233,10 +233,10 @@ $(document).ready(function(){
 
 	function parseAnswer(parsing) {
 		var persons = ['1', '2', '3', null];
-		var genders = ['m', 'f', null];
+		var genders = ['m', 'f', 'c', null];
 		var numbers = ['s', 'p', null];
 
-		var re = /^\s*(\w+)\s+(\w+\b)(?:\s+(?:([123])\s*)?([mf])\s*([sp])\s*)?$/;
+		var re = /^\s*(\w+)\s+(\w+\b)(?:\s+(?:([123])\s*)?([mfc])\s*([sp])\s*)?$/;
 		var match = parsing.match(re);
 		if (match == null)
 			return false;
@@ -269,6 +269,7 @@ $(document).ready(function(){
 		var genders = {
 			'm': 'masculine',
 			'f': 'feminine',
+			'c': 'common',
 		};
 		var numbers = {
 			's': 'singular',
@@ -318,6 +319,11 @@ $(document).ready(function(){
 		}
 
 		var answers = [answer];
+		if (answer['gender'] == 'c') {
+			answers.push(structuredClone(answer));
+			answers[0]['gender'] = 'm';
+			answers[1]['gender'] = 'f';
+		}
 
 		for (var i in answers) {
 			let answer = answers[i];
