@@ -44,7 +44,6 @@ $(document).ready(function(){
 				btns = { '01 ':    '01'
 				       , '02 ':    '02'
 				       , '03 ':    '03'
-				       , '04 ':    '04'
 				       , 'A1 ':    'A1'
 				       , 'A2 ':    'A2'
 				       , 'A3 ':    'A3'
@@ -58,18 +57,15 @@ $(document).ready(function(){
 				       , 'Aq ':    'Aq'
 				       , 'Tq ':    'Tq'
 				       , 'Tq3 ':   'Tq3'
+				       , 'Astq ':  'Astq'
 				       , 'Astq3 ': 'Astq3'
 				}; break;
 			case 1:
-				btns = { 'pf ':	   'Pf.'
-				       , 'ipf ':   'Ipf.'
-				       , 'imp ':   'Imp.'
-				       , 'subj ':  'Subj.'
-				       , 'infcs':  'Inf. cs.'
-				       , 'infabs': 'Inf. abs.'
-				       , 'infnom': 'Inf. nom.'
-				       , 'infacc': 'Inf. acc.'
-				       , 'ger ':   'Ger.'
+				btns = { 'pf ':	   'Perfect'
+				       , 'ipf ':   'Imperfect'
+				       , 'imp ':   'Imperative'
+				       , 'subj ':  'Subjunctive'
+				       , 'ger ':   'Gerundium'
 				}; break;
 			case 2:
 				btns = { '1': '1', '2': '2', '3': '3', '': 'N/A' }; break;
