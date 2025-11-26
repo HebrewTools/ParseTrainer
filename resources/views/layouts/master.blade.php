@@ -60,6 +60,15 @@ if (Auth::check()) {
 					If you are in the Netherlands, you should realize that <a class="alert-link" href="https://nos.nl/artikel/2563924-raad-van-state-democratie-in-nederland-staat-onder-druk" target="_blank">we are following the same trajectory</a> and <a class="alert-link" href="https://destraatop.nu/" target="_blank">resist</a>.
 				</p>
 			</div>
+			<div class="alert alert-warning" role="alert">
+				<p>
+					This app is being used by more and more people, which is great.
+					But server costs are growing due to traffic and price increases.
+					I'd like to keep this app available to all.
+					If you can, please consider
+					<a class="alert-link" href="https://whydonate.com/donate/hebrewtools-donations" target="_blank">donating</a>.
+				</p>
+			</div>
 		</div>
 		<div class="container" role="main">
 			<div class="header clearfix">
