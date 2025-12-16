@@ -41,6 +41,9 @@ class VerbController extends Controller {
 		foreach (RequestFacade::input() as $col => $val) {
 			if ($col == '_token')
 				continue;
+			if (!in_array($col, ['stem', 'tense', 'root'])) {
+				return response()->json(['message' => 'Malformed request.'], status: 403);
+			}
 			$vals = explode(',', $val);
 			$verbs = $verbs->whereIn($col, $vals);
 		}
