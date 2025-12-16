@@ -55,6 +55,15 @@ body {
 	padding: 15px;
 }
 
+#trainer-error a {
+	color: inherit;
+	font-weight: bold;
+}
+
+#trainer-error a:hover {
+	text-decoration: underline;
+}
+
 #trainer-input-fancy {
 	margin-bottom: 20px;
 }

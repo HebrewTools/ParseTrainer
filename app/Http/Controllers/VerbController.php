@@ -33,6 +33,10 @@ use Illuminate\Support\Facades\Validator;
 class VerbController extends Controller {
 
 	public function random() {
+		if (date('N') == 5) {
+			return response()->json(['message' => 'The app is disabled on Fridays due to lack of donations. Please consider <a href="https://whydonate.com/donate/hebrewtools-donations" target="_blank">donating</a> for the upkeep of the server: we need less than €10/month.'], status: 503);
+		}
+
 		$verbs = Verb::where('active', 1);
 		foreach (RequestFacade::input() as $col => $val) {
 			if ($col == '_token')

@@ -181,7 +181,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			error: function(jqxhr, status, error) {
 				if ('message' in jqxhr.responseJSON) {
-					$('#trainer-error').text(jqxhr.responseJSON.message);
+					$('#trainer-error').html(jqxhr.responseJSON.message);
 				} else {
 					$('#trainer-error').text('There was an unexpected error while searching for a verb.');
 				}
