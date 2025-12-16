@@ -56,9 +56,6 @@ if (Auth::check()) {
 					<a class="alert-link" href="https://www.theguardian.com/commentisfree/2025/mar/17/trump-us-path-educational-authoritarianism" target="_blank">two</a>.
 					The USA <a class="alert-link" href="https://theconversation.com/us-swing-toward-autocracy-doesnt-have-to-be-permanent-but-swinging-back-to-democracy-requires-vigilance-stamina-and-elections-250383" target="_blank">is quickly falling into autocracy</a>.
 				</p>
-				<p>
-					If you are in the Netherlands, you should realize that <a class="alert-link" href="https://nos.nl/artikel/2563924-raad-van-state-democratie-in-nederland-staat-onder-druk" target="_blank">we are following the same trajectory</a> and <a class="alert-link" href="https://destraatop.nu/" target="_blank">resist</a>.
-				</p>
 			</div>
 			<div class="alert alert-warning" role="alert">
 				<p>
