@@ -161,7 +161,7 @@ $(document).ready(function(){
 	}
 
 	function reloadVerb() {
-		$('#trainer-404').hide();
+		$('#trainer-error').hide();
 		$('#trainer-verb').css({color: 'gray'});
 		$('#trainer-answer').text('');
 		removeInputs();
@@ -180,7 +180,12 @@ $(document).ready(function(){
 			},
 			dataType: 'json',
 			error: function(jqxhr, status, error) {
-				$('#trainer-404').fadeIn();
+				if ('message' in jqxhr.responseJSON) {
+					$('#trainer-error').text(jqxhr.responseJSON.message);
+				} else {
+					$('#trainer-error').text('There was an unexpected error while searching for a verb.');
+				}
+				$('#trainer-error').fadeIn();
 			},
 			success: function(data, status, jqxhr) {
 				$('#trainer-verb').text(data.verb.verb).css({color: 'black'});

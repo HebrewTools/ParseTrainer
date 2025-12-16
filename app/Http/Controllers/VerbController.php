@@ -42,6 +42,10 @@ class VerbController extends Controller {
 		}
 		$verbs = $verbs->get();
 
+		if ($verbs->count() == 0) {
+			return response()->json(['message' => 'There are no verbs matching the criteria in our database.'], status: 404);
+		}
+
 		$verb = $verbs->random();
 
 		/* Possible answers are taken from the filtered verbs. Previously answers

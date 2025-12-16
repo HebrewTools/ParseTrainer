@@ -51,7 +51,7 @@ use HebrewParseTrainer\Tense;
 @section('content')
 <div id="trainer">
 	<div id="trainer-input-container">
-		<p class="bg-danger" id="trainer-404">There are no verbs matching the criteria in our database.</p>
+		<p class="bg-danger" id="trainer-error"></p>
 		<p class="lead"><span class="hebrew hebrew-large" id="trainer-verb"></span><span id="trainer-answer"></span></p>
 	</div>
 	<div id="trainer-input-fancy"></div>
