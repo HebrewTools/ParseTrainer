@@ -58,7 +58,7 @@ if (Auth::check()) {
 					The USA <a class="alert-link" href="https://theconversation.com/us-swing-toward-autocracy-doesnt-have-to-be-permanent-but-swinging-back-to-democracy-requires-vigilance-stamina-and-elections-250383" target="_blank">is quickly falling into autocracy</a>.
 				</p>
 			</div>
-			<div class="alert alert-warning" role="alert">
+			<div class="alert alert-{{ Donation::thisMonthAmountEur() >= Donation::DESIRED_AMOUNT ? 'info' : 'warning' }}" role="alert">
 				<p>
 					This app is being used by more and more people, which is great.
 					But server costs are growing due to traffic and price increases.
