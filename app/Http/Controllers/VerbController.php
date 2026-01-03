@@ -1,7 +1,7 @@
 <?php
 /**
  * HebrewParseTrainer - practice Hebrew verbs
- * Copyright (C) 2015-2023  Camil Staps <info@camilstaps.nl>
+ * Copyright (C) 2015-2026  Camil Staps <info@camilstaps.nl>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ use HebrewParseTrainer\Tense;
 use HebrewParseTrainer\Verb;
 use HebrewParseTrainer\VerbAction;
 use HebrewParseTrainer\RandomLog;
+use HebrewParseTrainer\Donation;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +34,17 @@ use Illuminate\Support\Facades\Validator;
 class VerbController extends Controller {
 
 	public function random() {
-		if (date('N') == 5) {
-			return response()->json(['message' => 'The app is disabled on Fridays due to lack of donations. Please consider <a href="https://whydonate.com/donate/hebrewtools-donations" target="_blank">donating</a> for the upkeep of the server: we need less than €10/month.'], status: 503);
+		$day = date('N');
+		if (($day == 1 || $day == 5) && !Donation::onTrack()) {
+			Donation::retrieveFromZapier();
+			if (!Donation::onTrack()) {
+				$rounded_amount = preg_replace('/\\.0*$/', '', number_format(Donation::thisMonthAmountEur(), 2));
+				return response()->json(['message' =>
+					'The app is disabled on Mondays and Fridays due to lack of donations. ' .
+					'Please consider <a href="https://whydonate.com/donate/hebrewtools-donations" target="_blank">donating</a> for the upkeep of the server. ' .
+					'We need about €' . Donation::DESIRED_AMOUNT . ' per month, and have only reached €' . $rounded_amount . ' this month so far).'
+				], status: 503);
+			}
 		}
 
 		$verbs = Verb::where('active', 1);

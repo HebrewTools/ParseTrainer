@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 HebrewParseTrainer - practice Hebrew verbs
-Copyright (C) 2015-2021  Camil Staps <info@camilstaps.nl>
+Copyright (C) 2015-2026  Camil Staps <info@camilstaps.nl>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <?php
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use HebrewParseTrainer\Donation;
 
 $activePage = isset($activePage) ? $activePage : '';
 $menu = [
@@ -50,7 +51,7 @@ if (Auth::check()) {
 		<div class="container">
 			<div class="alert alert-danger" role="alert">
 				<p>
-					If you are in the USA, you should educate yourself about the effects of the Trump administration on higher education.
+					If you are in the USA, please read up about the effects of the Trump administration on higher education.
 					Some places to start:
 					<a class="alert-link" href="https://www.nytimes.com/2025/04/14/us/politics/trump-pressure-universities.html" target="_blank">one</a>;
 					<a class="alert-link" href="https://www.theguardian.com/commentisfree/2025/mar/17/trump-us-path-educational-authoritarianism" target="_blank">two</a>.
@@ -64,6 +65,7 @@ if (Auth::check()) {
 					I'd like to keep this app available to all.
 					If you can, please consider
 					<a class="alert-link" href="https://whydonate.com/donate/hebrewtools-donations" target="_blank">donating</a>.
+					We need about €{{ Donation::DESIRED_AMOUNT }} per month, and have reached €{{ preg_replace('/\\.0*$/', '', number_format(Donation::thisMonthAmountEur(), 2)) }} this month so far.
 				</p>
 			</div>
 		</div>
