@@ -44,7 +44,6 @@ if (Auth::check()) {
 
 		<script type="text/javascript">
 			var app_url = '{{ env('APP_URL') }}';
-			window.Laravel = <?php echo json_encode([ 'csrfToken' => csrf_token() ]); ?>;
 		</script>
 	</head>
 	<body role="application">

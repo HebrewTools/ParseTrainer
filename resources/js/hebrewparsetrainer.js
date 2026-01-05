@@ -15,6 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+$.ajaxSetup({
+	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+});
+
 $(document).ready(function(){
 	// http://stackoverflow.com/a/4399433/1544337
 	jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
@@ -173,7 +177,6 @@ $(document).ready(function(){
 		$.ajax('verb/random/', {
 			method: 'POST',
 			data: {
-				_token: $('#csrf').val(),
 				stem: $.makeArray(stems).join(),
 				tense: $.makeArray(tenses).join(),
 				root: $.makeArray(roots).join()
