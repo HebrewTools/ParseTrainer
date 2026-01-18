@@ -20,6 +20,17 @@ namespace HebrewParseTrainer;
 
 use Illuminate\Database\Eloquent\Model;
 
+function curl_request($url) {
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_URL, $url);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($curl);
+	if (curl_errno($curl))
+		throw curl_error($curl);
+	curl_close($curl);
+	return $response;
+}
+
 class Donation extends Model {
 
 	protected $table = 'donations';
@@ -47,26 +58,29 @@ class Donation extends Model {
 			static::thisMonthAmountEur() >= static::DESIRED_AMOUNT;
 	}
 
-	public static function retrieveFromZapier() {
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, 'https://zapier.com/engine/rss/25907171/hebrewtools-donations');
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		$response = curl_exec($curl);
-		if (curl_errno($curl))
-			throw curl_error($curl);
-		curl_close($curl);
+	public static function retrieveCurrencyExchangeRate($base, $target, $date) {
+		$api_key = env('CURRENCYAPI_KEY');
+		$base = strtoupper($base);
+		$response = curl_request("https://api.currencyapi.com/v3/historical?apikey=$api_key&base_currency=$base&currencies=$target&date=$date");
+		$response = json_decode($response, true);
+		$rate = $response['data'][$target]['value'];
+		return $rate;
+	}
 
+	public static function retrieveFromZapier() {
+		$response = curl_request('https://zapier.com/engine/rss/25907171/hebrewtools-donations');
 		$rss = simplexml_load_string($response);
 		foreach($rss->channel->item as $item) {
 			$info = json_decode($item->description);
 			try {
+				$exchange_rate = static::retrieveCurrencyExchangeRate($info->currency, 'EUR', date('Y-m-d', strtotime($item->pubDate)));
 				static::firstOrCreate(
 					['zapier_guid' => $item->guid],
 					[
 						'added_at' => date('Y-m-d H:m:s', strtotime($item->pubDate)),
 						'amount' => $info->amount,
 						'currency' => $info->currency,
-						'amount_eur' => $info->amount_eur
+						'amount_eur' => $info->amount * $exchange_rate
 					]
 				);
 			} catch (ErrorException $e) {
