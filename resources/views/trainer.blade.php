@@ -8,8 +8,6 @@ use HebrewParseTrainer\Tense;
 
 @section('sidebar')
 <form id="hebrewparsetrainer-settings">
-	<input type="hidden" id="csrf" value="{{ csrf_token() }}"/>
-
 	<div class="form-group">
 		<h3>Stems</h3>
 		@foreach (Stem::all() as $stem)
@@ -51,8 +49,8 @@ use HebrewParseTrainer\Tense;
 @section('content')
 <div id="trainer">
 	<div id="trainer-input-container">
-		<p class="bg-danger" id="trainer-404">There are no verbs matching the criteria in our database.</p>
-		<p class="lead"><span class="geez geez-large" id="trainer-verb"></span><span id="trainer-answer"></span></p>
+		<p class="bg-danger" id="trainer-error"></p>
+		<p class="lead"><span class="hebrew hebrew-large" id="trainer-verb"></span><span id="trainer-answer"></span></p>
 	</div>
 	<div id="trainer-input-fancy"></div>
 	<div class="text-muted">

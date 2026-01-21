@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 HebrewParseTrainer - practice Hebrew verbs
-Copyright (C) 2015-2021  Camil Staps <info@camilstaps.nl>
+Copyright (C) 2015-2026  Camil Staps <info@camilstaps.nl>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <?php
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use HebrewParseTrainer\Donation;
 
 $activePage = isset($activePage) ? $activePage : '';
 $menu = [
@@ -43,21 +44,27 @@ if (Auth::check()) {
 
 		<script type="text/javascript">
 			var app_url = '{{ env('APP_URL') }}';
-			window.Laravel = <?php echo json_encode([ 'csrfToken' => csrf_token() ]); ?>;
 		</script>
 	</head>
 	<body role="application">
 		<div class="container">
 			<div class="alert alert-danger" role="alert">
 				<p>
-					If you are in the USA, you should educate yourself about the effects of the Trump administration on higher education.
+					If you are in the USA, please read up about the effects of the Trump administration on higher education.
 					Some places to start:
 					<a class="alert-link" href="https://www.nytimes.com/2025/04/14/us/politics/trump-pressure-universities.html" target="_blank">one</a>;
 					<a class="alert-link" href="https://www.theguardian.com/commentisfree/2025/mar/17/trump-us-path-educational-authoritarianism" target="_blank">two</a>.
 					The USA <a class="alert-link" href="https://theconversation.com/us-swing-toward-autocracy-doesnt-have-to-be-permanent-but-swinging-back-to-democracy-requires-vigilance-stamina-and-elections-250383" target="_blank">is quickly falling into autocracy</a>.
 				</p>
+			</div>
+			<div class="alert alert-{{ Donation::thisMonthAmountEur() >= Donation::DESIRED_AMOUNT ? 'info' : 'warning' }}" role="alert">
 				<p>
-					If you are in the Netherlands, you should realize that <a class="alert-link" href="https://nos.nl/artikel/2563924-raad-van-state-democratie-in-nederland-staat-onder-druk" target="_blank">we are following the same trajectory</a> and <a class="alert-link" href="https://destraatop.nu/" target="_blank">resist</a>.
+					This app is being used by more and more people, which is great.
+					But server costs are growing due to traffic and price increases.
+					I'd like to keep this app available to all.
+					If you can, please consider
+					<a class="alert-link" href="https://whydonate.com/donate/hebrewtools-donations" target="_blank">donating</a>.
+					We need about €{{ Donation::DESIRED_AMOUNT }} per month, and have reached €{{ preg_replace('/\\.0*$/', '', number_format(Donation::thisMonthAmountEur(), 2)) }} this month so far.
 				</p>
 			</div>
 		</div>

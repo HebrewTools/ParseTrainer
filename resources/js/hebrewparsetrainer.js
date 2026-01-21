@@ -15,6 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+$.ajaxSetup({
+	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+});
+
 $(document).ready(function(){
 	// http://stackoverflow.com/a/4399433/1544337
 	jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
@@ -168,7 +172,7 @@ $(document).ready(function(){
 	}
 
 	function reloadVerb() {
-		$('#trainer-404').hide();
+		$('#trainer-error').hide();
 		$('#trainer-verb').css({color: 'gray'});
 		$('#trainer-answer').text('');
 		removeInputs();
@@ -180,14 +184,18 @@ $(document).ready(function(){
 		$.ajax('verb/random/', {
 			method: 'POST',
 			data: {
-				_token: $('#csrf').val(),
 				stem: $.makeArray(stems).join(),
 				tense: $.makeArray(tenses).join(),
 				root: $.makeArray(roots).join()
 			},
 			dataType: 'json',
 			error: function(jqxhr, status, error) {
-				$('#trainer-404').fadeIn();
+				if ('message' in jqxhr.responseJSON) {
+					$('#trainer-error').html(jqxhr.responseJSON.message);
+				} else {
+					$('#trainer-error').text('There was an unexpected error while searching for a verb.');
+				}
+				$('#trainer-error').fadeIn();
 			},
 			success: function(data, status, jqxhr) {
 				$('#trainer-verb').text(data.verb.verb).css({color: 'black'});

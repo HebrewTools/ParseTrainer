@@ -50,9 +50,18 @@ body {
 	margin-bottom: 70px;
 }
 
-#trainer-404 {
+#trainer-error {
 	display: none;
 	padding: 15px;
+}
+
+#trainer-error a {
+	color: inherit;
+	font-weight: bold;
+}
+
+#trainer-error a:hover {
+	text-decoration: underline;
 }
 
 #trainer-input-fancy {
