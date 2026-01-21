@@ -72,6 +72,9 @@ server:
 
     $ docker compose up -d
 
+The application is now available at http://localhost:8080 (unless you set a
+different `APP_PORT` in `.env`).
+
 To stop the server:
 
     $ docker compose down
