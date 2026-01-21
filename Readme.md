@@ -6,60 +6,98 @@ A simple app to practice Hebrew verbs.
 
 [parse.hebrewtools.org][live]
 
-## Installation
+## Installation instructions for local use
+
+Prerequisites:
+
+- [npm][] (there are different ways to
+  [install npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm))
+- One of:
+  - [Docker][] (recommended)
+  - A local PHP and MySQL installation (for production use you also need an
+    HTTP server such as Nginx)
+
+### Retrieving code and dependencies
+
+Clone the repository:
 
     $ git clone https://github.com/HebrewTools/ParseTrainer.git
     $ cd ParseTrainer
-    $ composer install
+
+Retrieve dependencies:
+
     $ npm ci
+
+### Building static files
+
+If you are running in a private development environment, build static files
+with:
+
     $ npm run dev
 
-## Configuration
+If you are running in a public production environment, build static files with:
 
-Copy the `.env.example` file in the root directory to `.env` and customize it.
+    $ npm run prod
 
-Install `npm` packages:
-
-    $ npm install
+This (re)builds CSS and JavaScript files, and copies fonts and audio files from
+`./resources`.
 
 When developing, the following command can be used to automatically rebuild
 static resources (JS, CSS, etc.) when source files change:
 
     $ npm run watch
 
-### Docker Compose
+### Configuration
 
-To initialize the database:
+Copy the `.env.example` file in the root directory to `.env`. If you are
+running a public instance you should set `APP_ENV` to `production` and
+`APP_DEBUG` to `false`.
 
-    $ docker compose run --rm app bash -c 'composer install && php artisan migrate --seed'
+### Running in Docker (recommended)
 
-To generate an application key:
+Retrieve dependencies:
+
+    $ docker compose run --rm app composer install
+
+Generate a random application key for security purposes:
 
     $ docker compose run --rm app php artisan key:generate
 
-Then to run the server:
+Initialize the database:
+
+    $ docker compose run --rm app php artisan migrate --seed
+
+Once everything has been set up, only one command is needed to start the
+server:
 
     $ docker compose up -d
 
-### Local
+To stop the server:
 
-First, create a MySQL database and a user that can connect to it.
+    $ docker compose down
 
-Then run:
+### Running with a local PHP and MySQL installation
+
+Alternatively, you can use a local PHP and MySQL installation.
+
+Create a MySQL database and a user that can connect to it, and fill in the
+connection details in `.env`.
+
+Generate a random application key for security purposes:
 
     $ php artisan key:generate
+
+Initialize the database:
+
     $ php artisan migrate --seed
 
 You can now test the application with artisan's built-in web server:
 
     $ php artisan serve
 
-Alternatively, you can configure PHP through Nginx.
-
-### Nginx
-
-You need to enable PHP and redirect everything to `server.php`. Configuration
-on the root of a site is straightforward:
+In a production environment you should serve the application using a dedicated
+HTTP server such as Nginx. Essentially, you need to enable PHP and redirect
+everything to `server.php`. In Nginx this looks like:
 
     server {
         listen [::]:80;
@@ -123,5 +161,7 @@ Licensed under GPL v3.0, see the LICENSE file.
 This project uses the [EzraSIL][ezrasil] font which is licensed under the Open
 Font License.
 
+[Docker]: https://www.docker.com/
 [ezrasil]: http://scripts.sil.org/cms/scripts/page.php?item_id=EzraSIL_Home
 [live]: https://parse.hebrewtools.org/
+[npm]: https://npmjs.com
