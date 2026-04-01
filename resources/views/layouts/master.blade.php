@@ -23,12 +23,49 @@ use HebrewParseTrainer\Donation;
 
 $activePage = isset($activePage) ? $activePage : '';
 $menu = [
-	'Train' => ['/', ''],
+	'More languages' => [
+		'Biblical Hebrew' => 'https://parse.hebrewtools.org',
+		'Geʽez' => 'https://mitanim-parsing-trainer-ethiopic.linguistik.uzh.ch',
+	],
 ];
 
 if (Auth::check()) {
-	$menu['Contribute'] = ['contribute', 'contribute'];
-	$menu['Statistics'] = ['stats', 'stats'];
+	$menu['Contribute'] = 'contribute';
+	$menu['Statistics'] = 'stats';
+}
+
+function buildMenu($menu, $activePage, $level = 0) {
+	$res = '';
+	if ($level == 0)
+		$res .= '<nav><ul class="nav nav-pills pull-right">';
+	else
+		$res .= '<ul class="dropdown-menu">';
+
+	foreach ($menu as $name => $contents) {
+		if (is_array($contents)) {
+			$res .= '<li role="presentation" class="dropdown">';
+			$res .= '<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">';
+			$res .= $name . ' <span class="caret"></span>';
+			$res .= '</a>';
+			$res .= buildMenu($contents, $activePage, $level + 1);
+			$res .= '</li>';
+		} else {
+			$active = str_starts_with($contents, 'https://') ? Request::schemeAndHttpHost() == $contents : Request::is($contents);
+			$res .= '<li role="presentation" class="' . ($active ? 'active' : '') . '">';
+			$res .= '<a href="' . url($contents) . '">' . $name . '</a>';
+			$res .= '</li>';
+		}
+	}
+
+	if ($level == 0 && Auth::check()) {
+		$res .= '<li role="presentation"><a href="' . url('/logout') . '" onclick="event.preventDefault();document.getElementById(\'logout-form\').submit();">Logout</a></li>';
+	}
+
+	$res .= '</ul>';
+	if ($level == 0)
+		$res .= '</nav>';
+
+	return $res;
 }
 ?>
 <html lang="en">
@@ -49,16 +86,7 @@ if (Auth::check()) {
 	<body role="application">
 		<div class="container" role="main">
 			<div class="header clearfix">
-				<nav>
-					<ul class="nav nav-pills pull-right">
-						@foreach($menu as $name => $link)
-							<li role="presentation" class="{{ Request::is($link[0]) ? 'active' : '' }}"><a href="{{ url($link[1]) }}">{{ $name }}</a></li>
-						@endforeach
-						@if(Auth::check())
-							<li role="presentation"><a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
-						@endif
-					</ul>
-				</nav>
+				{!! buildMenu($menu, $activePage) !!}
 				<h2 class="text-muted"><a href="{{ url('/') }}">ParseTrainer</a></h2>
 			</div>
 

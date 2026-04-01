@@ -59,9 +59,16 @@ class Donation extends Model {
 	}
 
 	public static function retrieveCurrencyExchangeRate($base, $target, $date) {
+		if ($base == $target)
+			return 1;
 		$api_key = env('CURRENCYAPI_KEY');
 		$base = strtoupper($base);
-		$response = curl_request("https://api.currencyapi.com/v3/historical?apikey=$api_key&base_currency=$base&currencies=$target&date=$date");
+		$date = date('Y-m-d', $date);
+		if ($date == date('Y-m-d')) {
+			$response = curl_request("https://api.currencyapi.com/v3/latest?apikey=$api_key&base_currency=$base&currencies=$target");
+		} else {
+			$response = curl_request("https://api.currencyapi.com/v3/historical?apikey=$api_key&base_currency=$base&currencies=$target&date=$date");
+		}
 		$response = json_decode($response, true);
 		$rate = $response['data'][$target]['value'];
 		return $rate;
@@ -72,11 +79,13 @@ class Donation extends Model {
 		$rss = simplexml_load_string($response);
 		foreach($rss->channel->item as $item) {
 			$info = json_decode($item->description);
+			if (static::where('zapier_guid', $item->guid)->count() > 0)
+				continue;
 			try {
-				$exchange_rate = static::retrieveCurrencyExchangeRate($info->currency, 'EUR', date('Y-m-d', strtotime($item->pubDate)));
-				static::firstOrCreate(
-					['zapier_guid' => $item->guid],
+				$exchange_rate = static::retrieveCurrencyExchangeRate($info->currency, 'EUR', strtotime($item->pubDate));
+				static::create(
 					[
+						'zapier_guid' => $item->guid,
 						'added_at' => date('Y-m-d H:m:s', strtotime($item->pubDate)),
 						'amount' => $info->amount,
 						'currency' => $info->currency,
@@ -84,7 +93,7 @@ class Donation extends Model {
 					]
 				);
 			} catch (ErrorException $e) {
-				// ignore
+				// ignore, try again later
 			}
 		}
 	}
