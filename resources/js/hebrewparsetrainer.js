@@ -183,12 +183,21 @@ $(document).ready(function(){
 			},
 			dataType: 'json',
 			error: function(jqxhr, status, error) {
+				let reload = false;
 				if ('message' in jqxhr.responseJSON) {
-					$('#trainer-error').html(jqxhr.responseJSON.message);
+					if (jqxhr.responseJSON.message == 'CSRF token mismatch.') {
+						$('#trainer-error').html('Your session has timed out, reloading the page...');
+						reload = true;
+					} else {
+						$('#trainer-error').html(jqxhr.responseJSON.message);
+					}
 				} else {
 					$('#trainer-error').text('There was an unexpected error while searching for a verb.');
 				}
 				$('#trainer-error').fadeIn();
+				if (reload) {
+					window.location = window.location;
+				}
 			},
 			success: function(data, status, jqxhr) {
 				$('#trainer-verb').text(data.verb.verb).css({color: 'black'});
